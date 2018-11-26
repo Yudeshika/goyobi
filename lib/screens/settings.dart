@@ -6,7 +6,7 @@ class Settings extends StatelessWidget {
   Widget build(BuildContext context) => new Scaffold(
         //App Bar
         appBar: new IMAppBar(
-          title: 'Settings',
+          title: 'Settings Page',
           context: context,
         ),
 

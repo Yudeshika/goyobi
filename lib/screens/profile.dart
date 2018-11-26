@@ -35,8 +35,27 @@ class Profile extends StatelessWidget {
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(75.0)
                   ),
+                  boxShadow: [
+                    BoxShadow(blurRadius: 7.0, color: Colors.black)
+                  ]
                 ),
-                )
+                ),
+                SizedBox(height: 90.0),
+                Text(
+                  'Nadun Liyanage',
+                  style: TextStyle(
+                    fontSize: 30.0,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 15.0),
+                Text(
+                  'Subscribe Guys',
+                  style: TextStyle(
+                    fontSize: 17.0,
+                    fontStyle: FontStyle.italic,
+                  ),
+                ),
             ],
           ),
         )

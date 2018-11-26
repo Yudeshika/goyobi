@@ -18,6 +18,27 @@ class Profile extends StatelessWidget {
           color: Colors.black.withOpacity(0.8),
         ),
         clipper: getClipper(),
+        ),
+        Positioned(
+          width: 350.0,
+          top: MediaQuery.of(context).size.height / 5,
+          child: Column(
+            children: <Widget>[
+              Container(
+                width: 150.0,
+                height: 150.0,
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  image: DecorationImage(
+                    image: NetworkImage('https://www.atlassian.com/dam/jcr:13a574c1-390b-4bfb-956b-6b6d114bf98c/max-rehkopf.png'),
+                    fit: BoxFit.cover
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(75.0)
+                  ),
+                ),
+                )
+            ],
+          ),
         )
       ],
     ),

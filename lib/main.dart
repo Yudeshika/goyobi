@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import './screens/guide.dart' as _guidePage;
 import './screens/about.dart' as _aboutPage;
+import './screens/profile.dart' as _profilePage;
 import './screens/support.dart' as _supportPage;
 import './screens/settings.dart' as _settingsPage;
 
@@ -51,6 +52,10 @@ void main() => runApp(new MaterialApp(
       );
       case '/about': return new FromRightToLeft(
         builder: (_) => new _aboutPage.About(),
+        settings: settings,
+      );
+      case '/profile': return new FromRightToLeft(
+        builder: (_) => new _profilePage.Profile(),
         settings: settings,
       );
       case '/guide': return new FromRightToLeft(

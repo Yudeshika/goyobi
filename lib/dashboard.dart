@@ -243,10 +243,10 @@ class TabsState extends State<Tabs>  with TickerProviderStateMixin{
             //     }),
             new ListTile(
                 leading: new Icon(Icons.chat),
-                title: new Text('Support'),
+                title: new Text('My Profile'),
                 onTap: () {
                   //Navigator.pop(context);
-                  Navigator.of(context).pushNamed('/support');
+                  Navigator.of(context).pushNamed('/profile');
                 }),
             new ListTile(
                 leading: new Icon(Icons.settings),

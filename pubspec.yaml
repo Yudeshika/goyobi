@@ -7,7 +7,7 @@ dependencies:
   firebase_core: 
   cloud_firestore:
   intl: ">=0.14.0"
-  flutter_circular_chart: ^0.0.3
+  flutter_circular_chart: 
   url_launcher:
   flutter_svg: ^0.5.5+1
   firebase_auth:

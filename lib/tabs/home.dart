@@ -5,7 +5,7 @@ class Home extends StatelessWidget {
  
 
 
-  final VoidCallback onLayoutToggle;
+  final VoidCallback onLayoutToggle = null;
   @override
   Widget build(BuildContext context) => new Container(
     child: CustomScrollView(

@@ -263,7 +263,7 @@ class ListingState<T extends StatefulWidget> extends State<T>  with TickerProvid
               animation: _controller,
               builder: (BuildContext context, Widget child) {
                 return new Transform(
-                  transform: new Matrix4.rotationZ(_controller.value * 0.5 * math.PI),
+                  transform: new Matrix4.rotationZ(_controller.value * 0.5 * math.pi),
                   alignment: FractionalOffset.center,
                   child: new Icon(_controller.isDismissed ? Icons.add : Icons.close),
                 );

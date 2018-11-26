@@ -20,7 +20,7 @@ class Profile extends StatelessWidget {
         clipper: getClipper(),
         ),
         Positioned(
-          width: 350.0,
+          width: MediaQuery.of(context).size.width,
           top: MediaQuery.of(context).size.height / 5,
           child: Column(
             children: <Widget>[
@@ -84,8 +84,8 @@ class Profile extends StatelessWidget {
                   width: 95.0,
                   child: Material(
                     borderRadius: BorderRadius.circular(20.0),
-                    shadowColor: Colors.redAccent,
-                    color: Colors.red,
+                    shadowColor: Colors.orangeAccent,
+                    color: Colors.orange,
                     elevation: 7.0,
                     child: GestureDetector(
                       onTap: () {},
@@ -114,7 +114,7 @@ class getClipper extends CustomClipper<Path> {
     var path = new Path();
 
     path.lineTo(0.0, size.height / 1.9);
-    path.lineTo(size.width + 125, 0.0);
+    path.lineTo(size.width + 160, 0.0);
     path.close();
     return path;
   }

@@ -77,7 +77,29 @@ class Profile extends StatelessWidget {
                       ),
                     ),
                   ),
-                  )
+                  ),
+                SizedBox(height: 25.0),
+                Container(
+                  height: 30.0,
+                  width: 95.0,
+                  child: Material(
+                    borderRadius: BorderRadius.circular(20.0),
+                    shadowColor: Colors.redAccent,
+                    color: Colors.red,
+                    elevation: 7.0,
+                    child: GestureDetector(
+                      onTap: () {},
+                      child: Center(
+                        child: Text(
+                          'Log Out',
+                          style: TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  ),
             ],
           ),
         )

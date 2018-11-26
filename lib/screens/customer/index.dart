@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import '../../components/controls/ListingState.dart';
 
+import '../user/auth.dart';
+
 class Customers extends StatefulWidget {
 
-  Customers();
+  final BaseAuth auth;
+
+  Customers({this.auth});
 
   var list = ['name','nic']; 
    @override

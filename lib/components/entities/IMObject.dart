@@ -7,6 +7,7 @@ class IMObject {
   String subtitle;
   Icon icon;
   Image image;
+  
 
   IMObject.fromJson(this.key, Map data) {
     title = data['name'];

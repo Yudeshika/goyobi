@@ -34,12 +34,18 @@ class Settings extends StatelessWidget {
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                new IMTextField(
-                                  label: 'Currency Format',
+                                new Text(
+                                  'Currency Format',
                                 ),
-
                                 new IMTextField(
-                                  label: 'Date Format',
+                                  label: 'LKR',
+                                ),
+                                new Text(
+                                  'Date Format',
+                                ),
+                                new IMTextField(
+                                  label: 'yyyy-MM-dd',
+                                  
                                 ),
                                 new SizedBox(height: 10.0),
                                  new Text(

@@ -71,7 +71,7 @@ class IMButton extends RaisedButton {
           // (icon== null)?new Text(''): new SizedBox(width:0.0),
           new Text(title,
           style: new TextStyle(
-            color: Colors.cyan[400],
+            color: (type==ButtonTypes.action)? Colors.cyan: Colors.amber[50],
             fontSize:
                 Theme.of(context).platform == TargetPlatform.iOS ? 12.0 : 14.0,
                 

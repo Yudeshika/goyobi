@@ -10,7 +10,11 @@ dependencies:
   flutter_circular_chart: ^0.0.3
   url_launcher:
   flutter_svg: ^0.5.5+1
+  firebase_auth:
   sms: ^0.2.0
+  datetime_picker_formfield:
+  carousel_pro: ^0.0.13
+
 
 
 dev_dependencies:
@@ -34,10 +38,15 @@ flutter:
     - assets/common/logo.png
     - assets/common/banner.jpg
     - assets/common/support.png
+    - assets/common/sparkles.png
     - assets/tools/bmi/gender_arrow.svg
     - assets/tools/bmi/gender_female.svg
     - assets/tools/bmi/gender_male.svg
     - assets/tools/bmi/gender_other.svg
+    - assets/tools/bmi/weight_arrow.svg
+    - assets/tools/bmi/person.svg
+    - assets/policy/fire.svg
+    - assets/policy/dta.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.io/assets-and-images/.

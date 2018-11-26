@@ -43,7 +43,11 @@ class Reminders extends StatelessWidget {
                           return new ListView(
                             children: snapshot.data.documents
                                 .map((DocumentSnapshot document) {
+                                  
+
                               return new Card(
+                               child: SingleChildScrollView(
+                    
                                 child: ListTile(
                                 title: new Text(document['text']),
                                 subtitle: new Row /*or Column*/ (
@@ -76,11 +80,12 @@ class Reminders extends StatelessWidget {
                                     new SizedBox(
                                       width: 10.0,
                                     ),
-                                    new Icon(Icons.cake, size: 16.0),
+
+                                    new Icon((document['type']==1)?Icons.people:((document['type']==2))?Icons.assignment_late:((document['type']==3))?Icons.cake:Icons.devices_other, size: 16.0),
                                     new SizedBox(
                                       width: 5.0,
                                     ),
-                                    new Text("Birthday"),
+                                    new Text((document['type']==1)?"Meeting":((document['type']==2))?"Task":((document['type']==3))?"Birthday":"Other"),
                                     new SizedBox(
                                       width: 5.0,
                                     ),
@@ -91,11 +96,14 @@ class Reminders extends StatelessWidget {
                                     backgroundColor: Colors.red.shade500,
                                     ),
                               ),
+                                )
+                                
                               );
                             }).toList(),
                           );
                         },
                       )),
+                  
                 )
               ],
             ),
@@ -116,7 +124,7 @@ class Reminders extends StatelessWidget {
                   ),
                 ),
                 new Container(
-                  height: 160.0,
+                  height: 250.0,
                   child: new Align(
                       alignment: Alignment.topCenter,
                       child: StreamBuilder(
@@ -132,7 +140,10 @@ class Reminders extends StatelessWidget {
                             children: snapshot.data.documents
                                 .map((DocumentSnapshot document) {
                               return new Card(
-                                child: ListTile(
+                                child: SingleChildScrollView(
+                    
+                                child: 
+                                ListTile(
                                 title: new Text(document['text']),
                                 subtitle: new Row /*or Column*/ (
                                   mainAxisSize: MainAxisSize.min,
@@ -164,11 +175,11 @@ class Reminders extends StatelessWidget {
                                     new SizedBox(
                                       width: 10.0,
                                     ),
-                                    new Icon((document['level']==1)?Icons.people:Icons.gps_fixed, size: 16.0),
+                                    new Icon((document['type']==1)?Icons.people:((document['type']==2))?Icons.assignment_late:((document['type']==3))?Icons.cake:Icons.devices_other, size: 16.0),
                                     new SizedBox(
                                       width: 5.0,
                                     ),
-                                    new Text((document['level']==1)?"Meeting":"Pickup"),
+                                    new Text((document['type']==1)?"Meeting":((document['type']==2))?"Task":((document['type']==3))?"Birthday":"Other"),
                                     new SizedBox(
                                       width: 5.0,
                                     ),
@@ -180,6 +191,7 @@ class Reminders extends StatelessWidget {
                                     backgroundColor: Colors.green.shade200,
                                     ),
                               ),
+                                )
                               );
                             }).toList(),
                           );

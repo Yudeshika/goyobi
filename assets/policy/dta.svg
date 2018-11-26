@@ -1,0 +1,16 @@
+<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg">
+ <!-- Created with Method Draw - http://github.com/duopixel/Method-Draw/ -->
+ <g>
+  <title>background</title>
+  <rect fill="#fff" id="canvas_background" height="402" width="402" y="-1" x="-1"/>
+  <g display="none" overflow="visible" y="0" x="0" height="100%" width="100%" id="canvasGrid">
+   <rect fill="url(#gridpattern)" stroke-width="0" y="0" x="0" height="100%" width="100%"/>
+  </g>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <rect rx="31" stroke="#000000" id="svg_1" height="275" width="278.999996" y="54.770833" x="51.5" stroke-width="1.5" fill="#000000"/>
+  <text stroke="#000000" transform="matrix(-13.893619230864715,0,0,5.841583772235026,-2032.7383810447627,-51.43847593219323) " xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_2" y="31.770833" x="-163.5" stroke-width="0" fill="#000000"/>
+  <text font-weight="bold" stroke="#000000" transform="matrix(4.548649565908315,0,0,6.061789086244226,-1335.954762228492,-808.1112719358441) " xml:space="preserve" text-anchor="start" font-family="Helvetica, Arial, sans-serif" font-size="24" id="svg_3" y="173.637327" x="311.995598" stroke-opacity="null" stroke-width="0" fill="#ffffff">DTA</text>
+ </g>
+</svg>

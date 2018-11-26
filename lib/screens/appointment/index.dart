@@ -5,7 +5,7 @@ class Appointments extends StatefulWidget {
 
   Appointments();
 
-  var list = ['customer','date','place']; 
+  var list = ['name','start','place']; 
    @override
   _AppointmentsState<Appointments> createState() => new _AppointmentsState<Appointments>('APPOINTMENTS', 'appointments', list);
 

@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 
-class IMTextField extends TextField {
+class IMTextField extends TextFormField {
   
 
   IMTextField(
       {
       Key key,
+      FormFieldValidator<String> validator,
       String label, 
       TextEditingController controller,
+      dynamic keyboardType,
       BuildContext context})
       : super(
           key: key,
-         decoration: InputDecoration(
-                                labelText: label),
-                                controller: controller
+          validator: validator,
+          decoration: InputDecoration(labelText: label),
+          controller: controller,
+          keyboardType: (keyboardType==null)?TextInputType.text: keyboardType
         );
  
 

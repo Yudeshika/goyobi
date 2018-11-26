@@ -1,19 +1,25 @@
 import 'dart:math' as math;
 
-import './card_title.dart';
+import '../card_title.dart';
 import './gender.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import 'widget_utils.dart' show screenAwareSize;
+import '../widget_utils.dart' show screenAwareSize;
 
 class GenderCard extends StatefulWidget {
   final Gender initialGender;
+  Gender selectGender;
+  
 
-  const GenderCard({Key key, this.initialGender}) : super(key: key);
+  GenderCard({Key key, this.initialGender}) : super(key: key);
 
   @override
   _GenderCardState createState() => _GenderCardState();
+
+  Gender getGender(){
+    return selectGender;
+  }
 }
 
 const double _defaultGenderAngle = math.pi / 4;
@@ -29,6 +35,8 @@ class _GenderCardState extends State<GenderCard>
     with SingleTickerProviderStateMixin {
   AnimationController _arrowAnimationController;
   Gender selectedGender;
+
+  
 
   @override
   void initState() {
@@ -52,7 +60,7 @@ class _GenderCardState extends State<GenderCard>
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding: EdgeInsets.only(top: screenAwareSize(8.0, context)),
+        padding: EdgeInsets.only(top: screenAwareSize(12.0, context)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
@@ -103,6 +111,7 @@ class _GenderCardState extends State<GenderCard>
 
   void _setSelectedGender(Gender gender) {
     setState(() => selectedGender = gender);
+    setState(() => widget.selectGender = gender);
     _arrowAnimationController.animateTo(
       _genderAngles[gender],
       duration: Duration(milliseconds: 150),

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import '../components/IM.dart';
-class Profile extends StatelessWidget {
+import '../../components/IM.dart';
+class CustomerView extends StatelessWidget {
   @override
   Widget build (BuildContext context) => new Scaffold(
 
     //App Bar
     //App Bar
     appBar: new IMAppBar(
-      title: "MY PROFILE",
+      title: "Customer",
       context: context,
     ),
 
@@ -22,17 +22,7 @@ class Profile extends StatelessWidget {
         Positioned(
           width: MediaQuery.of(context).size.width,
           top: MediaQuery.of(context).size.height / 7,
-          child: StreamBuilder(
-                        stream: Firestore.instance
-                            .collection('reminders')
-                            .where("remind_on", isLessThan: new DateTime.now())
-                            .snapshots(),
-                        builder: (BuildContext context,
-                            AsyncSnapshot<QuerySnapshot> snapshot) {
-                          if (!snapshot.hasData) return new Text('Loading...');
-          
-          
-          Column(
+          child: Column(
             children: <Widget>[
               Container(
                 width: 150.0,
@@ -278,7 +268,7 @@ class Profile extends StatelessWidget {
                       onTap: () {},
                       child: Center(
                         child: Text(
-                          'Edit Profile',
+                          'Edit Profile ',
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 20.0
@@ -289,8 +279,6 @@ class Profile extends StatelessWidget {
                   ),
                   ),
             ],
-          );
-                            }
           ),
         )
       ],

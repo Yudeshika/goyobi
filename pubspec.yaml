@@ -14,6 +14,7 @@ dependencies:
   sms: ^0.2.0
   datetime_picker_formfield:
   carousel_pro: ^0.0.13
+  firebase_storage:
 
 
 

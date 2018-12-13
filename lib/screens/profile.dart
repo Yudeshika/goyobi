@@ -51,7 +51,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                             .map((DocumentSnapshot document) {
                                print("s="+document.toString());
 
-                               final DocumentReference postRef = Firestore.instance.document('companies/'+document["company"]);
+                              //  final DocumentReference postRef = Firestore.instance.document('companies/'+document["company"]);
 // Firestore.instance.runTransaction((Transaction tx) async {
 //   DocumentSnapshot postSnapshot = await tx.get(postRef);
 //   if (postSnapshot.exists) {

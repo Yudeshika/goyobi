@@ -9,6 +9,7 @@ import './screens/todo/create.dart' as _todosCreatePage;
 import './components/IM.dart';
 import './screens/user/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 import 'dart:math';
 
@@ -18,10 +19,33 @@ class Tabs extends StatefulWidget {
   final BaseAuth auth;
 
   FirebaseUser user;
+  
+  String uid;
+  String name = "-";
+  String email = "-";
 
   Tabs({this.auth, this.onSignOut}){
     auth.currentUserObject().then((userObj) {
       user = userObj;
+    });
+
+    new Auth().currentUser().then((userId) {
+      uid = userId;
+      if (this.name == "-") {
+      print("NAME is empty ------------------------"+this.uid);
+     Firestore.instance
+    .collection('members')
+    .where("uid", isEqualTo: this.uid)
+    .snapshots()
+    .listen((data)=>
+        data.documents.forEach((doc){
+          print("NAME="+doc["last_name"]);
+          this.name = doc["first_name"]+" "+doc["last_name"];
+          this.email = doc["email"];
+          
+        } 
+    ));              
+    }
     });
   }
 
@@ -58,6 +82,8 @@ class TabsState extends State<Tabs>  with TickerProviderStateMixin{
     sparklesAnimation.addListener((){
       setState(() { });
     });
+
+    
 
     increment(null);
   }
@@ -211,7 +237,7 @@ class TabsState extends State<Tabs>  with TickerProviderStateMixin{
                               new BoxDecoration(color: Colors.amber),
                               child:Center(
               child: new Text(
-              "Your Name Here",
+              widget.name,
               style: new TextStyle(color: Colors.white70, fontSize: 20.0),
             ),
             )
@@ -219,7 +245,7 @@ class TabsState extends State<Tabs>  with TickerProviderStateMixin{
             new SizedBox(height: 10.0),
             new Center(
               child: new Text(
-              "tonadun@gmail.com",
+              widget.email,
               style: new TextStyle(color: Colors.lightBlue),
             ),
             ),

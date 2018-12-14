@@ -5,7 +5,9 @@ import '../screens/user/auth.dart';
 
 class Profile extends StatefulWidget {
   String uid;
-  String companyName =" - ";
+  String companyName = "-";
+  String countryName = "-";
+
   Profile() {
     new Auth().currentUser().then((userId) {
       uid = userId;
@@ -15,7 +17,7 @@ class Profile extends StatefulWidget {
   _ProfileState createState() => new _ProfileState();
 }
 
-class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
+class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) => new Scaffold(
         //App Bar
@@ -49,16 +51,29 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                     return Column(
                         children: snapshot.data.documents
                             .map((DocumentSnapshot document) {
-                               print("s="+document.toString());
 
-                              //  final DocumentReference postRef = Firestore.instance.document('companies/'+document["company"]);
-// Firestore.instance.runTransaction((Transaction tx) async {
-//   DocumentSnapshot postSnapshot = await tx.get(postRef);
-//   if (postSnapshot.exists) {
-//     print("sss="+widget.companyName);
-//     widget.companyName = postSnapshot.data['name'];
-//   }
-// });
+
+                      if (widget.companyName == "-") {
+                        DocumentReference postRef = Firestore.instance
+                            .collection('companies')
+                            .document(document["company"]);
+                        postRef.get().then((string) {
+                          setState(() {
+                            widget.companyName = string["name"];
+                          });
+                        });
+                      }
+
+                      if (widget.countryName == "-") {
+                        DocumentReference postRef = Firestore.instance
+                            .collection('countries')
+                            .document(document["country"]);
+                        postRef.get().then((string) {
+                          setState(() {
+                            widget.countryName = string["name"];
+                          });
+                        });
+                      }
 
                       
 
@@ -166,7 +181,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                                             blurRadius: 3.0, color: Colors.grey)
                                       ]),
                                   child: Text(
-                                    '0774587452',
+                                    document["mobile_no"],
                                     style: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 17.0,
@@ -189,7 +204,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                                           blurRadius: 3.0, color: Colors.grey)
                                     ]),
                                 child: Text(
-                                  '0117889547',
+                                  document["home_tp"],
                                   style: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 17.0,
@@ -214,7 +229,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                                             blurRadius: 3.0, color: Colors.grey)
                                       ]),
                                   child: Text(
-                                    'Sri Lanka',
+                                    widget.countryName,
                                     style: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 17.0,
@@ -261,7 +276,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                                             blurRadius: 3.0, color: Colors.grey)
                                       ]),
                                   child: Text(
-                                    'Office - 0117458745',
+                                    'Office - '+document["office_tp"],
                                     style: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 17.0,
@@ -283,7 +298,7 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                                           blurRadius: 3.0, color: Colors.grey)
                                     ]),
                                 child: Text(
-                                  '1988-12-07',
+                                  document["mobile_no"],
                                   style: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 17.0,

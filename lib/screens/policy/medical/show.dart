@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import '../../components/IM.dart';
+import '../../../components/IM.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import '../../screens/user/auth.dart';
+import '../../../screens/user/auth.dart';
 
-class CustomerView extends StatefulWidget {
+class PolicyMedicalView extends StatefulWidget {
   DocumentSnapshot document;
   String companyName = "-";
   String countryName = "-";
 
-  CustomerView(doc) {
+  PolicyMedicalView(doc) {
     this.document = doc;
   }
   @override
-  _CustomerViewState createState() => new _CustomerViewState();
+  _PolicyMedicalViewState createState() => new _PolicyMedicalViewState();
 }
 
-class _CustomerViewState extends State<CustomerView> {
+class _PolicyMedicalViewState extends State<PolicyMedicalView> {
 
 @override
   void initState() {
@@ -49,12 +49,12 @@ class _CustomerViewState extends State<CustomerView> {
         //App Bar
         //App Bar
         appBar: new IMAppBar(
-          title: "CUSTOMER VIEW",
+          title: "POLICY VIEW",
           context: context,
         ),
 
         //Content of tabs
-        body:  new Stack(
+        body: new Stack(
           children: <Widget>[
             ClipPath(
               child: Container(
@@ -92,7 +92,7 @@ class _CustomerViewState extends State<CustomerView> {
                           ),
                           SizedBox(height: 15.0),
                           Text(
-                            widget.document["email"],
+                            widget.document["policyname"],
                             style: TextStyle(
                               fontSize: 17.0,
                               fontStyle: FontStyle.italic,
@@ -116,7 +116,7 @@ class _CustomerViewState extends State<CustomerView> {
                                             blurRadius: 3.0, color: Colors.grey)
                                       ]),
                                   child: Text(
-                                    widget.document["nic"],
+                                    widget.document["policyno"],
                                     style: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 17.0,
@@ -142,7 +142,7 @@ class _CustomerViewState extends State<CustomerView> {
                                                 color: Colors.grey)
                                           ]),
                                       child: Text(
-                                        widget.companyName,
+                                        widget.document["commenceddate"],
                                         style: TextStyle(
                                           color: Colors.grey,
                                           fontSize: 17.0,
@@ -167,7 +167,7 @@ class _CustomerViewState extends State<CustomerView> {
                                             blurRadius: 3.0, color: Colors.grey)
                                       ]),
                                   child: Text(
-                                    widget.document["mobile"],
+                                    widget.document["proposalno"],
                                     style: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 17.0,
@@ -190,7 +190,7 @@ class _CustomerViewState extends State<CustomerView> {
                                           blurRadius: 3.0, color: Colors.grey)
                                     ]),
                                 child: Text(
-                                  widget.document["home"],
+                                  widget.document["premium"],
                                   style: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 17.0,
@@ -262,7 +262,7 @@ class _CustomerViewState extends State<CustomerView> {
                                             blurRadius: 3.0, color: Colors.grey)
                                       ]),
                                   child: Text(
-                                    'Office - '+ widget.document["worktelephone"].toString(),
+                                    widget.document["paid"].toString(),
                                     style: TextStyle(
                                       color: Colors.grey,
                                       fontSize: 17.0,
@@ -284,7 +284,7 @@ class _CustomerViewState extends State<CustomerView> {
                                           blurRadius: 3.0, color: Colors.grey)
                                     ]),
                                 child: Text(
-                                  widget.document["mobile"],
+                                  widget.document["due"],
                                   style: TextStyle(
                                     color: Colors.grey,
                                     fontSize: 17.0,
@@ -306,7 +306,7 @@ class _CustomerViewState extends State<CustomerView> {
                                 onTap: () {},
                                 child: Center(
                                   child: Text(
-                                    'Edit Profile',
+                                    'Edit Policy',
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 20.0),
                                   ),

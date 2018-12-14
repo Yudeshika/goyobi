@@ -11,7 +11,6 @@ import './screens/user/register.dart' as _registerPage;
 import './screens/todo/index.dart' as _todosPage;
 import './screens/todo/create.dart' as _todoCreatePage;
 import './screens/customer/create.dart' as _customerCreatePage;
-import './screens/customer/show.dart' as _customerViewPage;
 import './screens/customer/index.dart' as _customerListPage;
 import './screens/policy/index.dart' as _policyListPage;
 import './screens/policy/life/create.dart' as _policyLifeCreatePage;
@@ -87,10 +86,6 @@ void main() => runApp(new MaterialApp(
       );
       case '/customercreate': return new FromRightToLeft(
         builder: (_) => new _customerCreatePage.CustomerCreate(),
-        settings: settings,
-      );
-      case '/customerview': return new FromRightToLeft(
-        builder: (_) => new _customerViewPage.CustomerView(),
         settings: settings,
       );
       

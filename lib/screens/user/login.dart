@@ -62,10 +62,11 @@ class _LoginState extends State<Login> {
                             label: 'User Name or Email',
                             validator: (value) => value.isEmpty?"Email Can't Be Empty":null,
                             controller: txtEmail,
-                          ),
+                          ), 
                           new IMTextField(
                             label: 'Enter your Password',
-                            validator: (value) => value.isEmpty?"Password Can't Be Empty":null,
+                            obscureText: true,
+                            validator: (value) =>  value.length < 6 ? 'Password Too Short.' : null,
                             controller: txtPassword,
                           ),
                           

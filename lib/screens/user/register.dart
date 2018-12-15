@@ -29,7 +29,7 @@ class _RegisterState extends State<Register> {
   TextEditingController txtOfficePhone = TextEditingController();
 
   final formKey = new GlobalKey<FormState>();
- 
+
   @override
   Widget build(BuildContext context) => new Scaffold(
 
@@ -102,13 +102,16 @@ class _RegisterState extends State<Register> {
                               ),
 
                               new IMTextField(
-                                validator: (value) => value.isEmpty?"Email Can't Be Empty":null,
+                                validator: (value) => value.isEmpty
+                                    ? "Email Can't Be Empty"
+                                    : null,
                                 label: 'User Name or Email',
                                 controller: txtEmail,
                               ),
                               new IMTextField(
                                 label: 'Enter Passowrd',
-                                validator: (value) => value.isEmpty?"Password Can't Be Empty":null,
+                                obscureText: true,
+                                validator: (value) => value.length < 6 ? 'Password Too Short.' : null,
                                 controller: txtPassword,
                               ),
                               new IMTextField(
@@ -195,11 +198,21 @@ class _RegisterState extends State<Register> {
                                       if (form.validate()) {
                                         print("Valid Form");
 
-                                        FirebaseAuth.instance.createUserWithEmailAndPassword( email: txtEmail.text, password:txtPassword.text);
+                                        FirebaseAuth.instance
+                                            .createUserWithEmailAndPassword(
+                                                email: txtEmail.text,
+                                                password: txtPassword.text)
+                                            .then((user) {
+                                              print("UID = "+user.uid);
+                                              Firestore.instance.runTransaction((Transaction transaction) async{
+                                                CollectionReference reference = Firestore.instance.collection('members');
+                                                await reference.add({"first_name":txtFirstName.text,"last_name":txtLastName.text,"email":txtEmail.text,"password":txtPassword.text,"nic":txtNic.text, "mobile_no": txtMobile.text, "home_tp": txtHomePhone.text, "office_tp":txtOfficePhone.text, "company":selectedCompany,"country":selectedCountry, "uid":user.uid});
+                                              });
+                                            });
 
                                         // Firestore.instance.runTransaction((Transaction transaction) async{
                                         // CollectionReference reference = Firestore.instance.collection('members');
-                                        // await reference.add({"first_name":txtFirstName.text,"last_name":txtLastName.text,"email":txtEmail.text,"password":txtPassword.text,"nic":txtNic.text, "mobile_no": txtMobile.text, "home_tp": txtHomePhone.text, "office_tp":txtOfficePhone.text, "company":selectedCompany,"country":selectedCountry});
+                                        // await reference.add({"first_name":txtFirstName.text,"last_name":txtLastName.text,"email":txtEmail.text,"password":txtPassword.text,"nic":txtNic.text, "mobile_no": txtMobile.text, "home_tp": txtHomePhone.text, "office_tp":txtOfficePhone.text, "company":selectedCompany,"country":selectedCountry, "uid":});
                                         // });
                                         Navigator.of(context).pushNamed("/");
                                       } else {

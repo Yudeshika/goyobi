@@ -102,7 +102,8 @@ class Reminders extends StatelessWidget {
                             }).toList(),
                           );
                         },
-                      )),
+                      )
+                      ),
                   
                 )
               ],

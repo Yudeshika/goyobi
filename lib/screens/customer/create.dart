@@ -238,7 +238,7 @@ class _CustomersState extends State<CustomerCreate> {
 
                               (validator.getMap()["children"]!=null && validator.getMap()["children"]["show"])?    
                               new IMTextField(
-                                  label: 'No of Children'+((validator.getMap()["children"]["validation_rules"]!=null)?" *":""),
+                                  label: 'No of Children'+((validator.getMap()["children"]["validation_rules"]!="")?" *":""),
                                   controller: txtChildren,
 
                                   keyboardType: TextInputType.number,
@@ -249,7 +249,7 @@ class _CustomersState extends State<CustomerCreate> {
 
                               (validator.getMap()["height"]!=null && validator.getMap()["height"]["show"])?
                               new IMTextField(
-                                  label: 'Height'+((validator.getMap()["height"]["validation_rules"]!=null)?" *":""),
+                                  label: 'Height (cm)'+((validator.getMap()["height"]["validation_rules"]!="")?" *":""),
                                    controller: txtHeight,
 
                                   keyboardType: TextInputType.number,
@@ -258,9 +258,9 @@ class _CustomersState extends State<CustomerCreate> {
                                     .validate(text, "height", widget),
                                     ):new SizedBox(),
 
-                              (validator.getMap()["weight"]!=null && validator.getMap()["weight"]["show"])?
+                              (validator.getMap()["weight (Kg)"]!=null && validator.getMap()["weight"]["show"])?
                               new IMTextField(
-                                  label: 'Weight'+((validator.getMap()["weight"]["validation_rules"]!=null)?" *":""),
+                                  label: 'Weight'+((validator.getMap()["weight"]["validation_rules"]!="")?" *":""),
                                    controller: txtWeight,
 
                                   keyboardType: TextInputType.number,
@@ -272,7 +272,7 @@ class _CustomersState extends State<CustomerCreate> {
                               (validator.getMap()["diseases"]!=null && validator.getMap()["diseases"]["show"])?
                               new IMTextField(
                                   label:
-                                      'Civil Status Suffering from any Diseases or Disabilities'+((validator.getMap()["diseases"]["validation_rules"]!=null)?" *":""),
+                                      'Civil Status Suffering from any Diseases or Disabilities'+((validator.getMap()["diseases"]["validation_rules"]!="")?" *":""),
                                   controller: txtDiseases,
                                   
                                    validator: (text) => widget.validator
@@ -281,7 +281,7 @@ class _CustomersState extends State<CustomerCreate> {
 
                               (validator.getMap()["occupation"]!=null && validator.getMap()["occupation"]["show"])?
                               new IMTextField(
-                                  label: 'Occupation / Type of Business'+((validator.getMap()["occupation"]["validation_rules"]!=null)?" *":""),
+                                  label: 'Occupation / Type of Business'+((validator.getMap()["occupation"]["validation_rules"]!="")?" *":""),
                                   controller: txtOccupation,
                                   
                                    validator: (text) => widget.validator
@@ -290,7 +290,7 @@ class _CustomersState extends State<CustomerCreate> {
 
                               (validator.getMap()["income"]!=null && validator.getMap()["income"]["show"])?
                               new IMTextField(
-                                  label: 'Income'+((validator.getMap()["income"]["validation_rules"]!=null)?" *":""),
+                                  label: 'Income'+((validator.getMap()["income"]["validation_rules"]!="")?" *":""),
                                    controller: txtIncome,
 
                                   keyboardType: TextInputType.number,
@@ -302,7 +302,7 @@ class _CustomersState extends State<CustomerCreate> {
                               (validator.getMap()["address"]!=null && validator.getMap()["address"]["show"])?
                               new IMTextField(
                                   label:
-                                      'Civil StatusHome Address / Register Address'+((validator.getMap()["address"]["validation_rules"]!=null)?" *":""),
+                                      'Home Address / Register Address'+((validator.getMap()["address"]["validation_rules"]!="")?" *":""),
                                   controller: txtAddress,
                                   
                                    validator: (text) => widget.validator
@@ -311,7 +311,7 @@ class _CustomersState extends State<CustomerCreate> {
 
                               (validator.getMap()["workaddress"]!=null && validator.getMap()["workaddress"]["show"])?
                               new IMTextField(
-                                  label: 'Work Address'+((validator.getMap()["workaddress"]["validation_rules"]!=null)?" *":""),
+                                  label: 'Work Address'+((validator.getMap()["workaddress"]["validation_rules"]!="")?" *":""),
                                   controller: txtWorkaddress,
                                   
                                    validator: (text) => widget.validator
@@ -320,7 +320,7 @@ class _CustomersState extends State<CustomerCreate> {
 
                               (validator.getMap()["number"]!=null && validator.getMap()["number"]["show"])?
                               new IMTextField(
-                                  label: 'Contact Number'+((validator.getMap()["number"]["validation_rules"]!=null)?" *":""),
+                                  label: 'Contact Number'+((validator.getMap()["number"]["validation_rules"]!="")?" *":""),
                                   controller: txtNumber,
 
                                   keyboardType: TextInputType.phone,
@@ -331,7 +331,7 @@ class _CustomersState extends State<CustomerCreate> {
 
                               (validator.getMap()["mobile"]!=null && validator.getMap()["mobile"]["show"])?
                               new IMTextField(
-                                  label: 'Mobile'+((validator.getMap()["mobile"]["validation_rules"]!=null)?" *":""),
+                                  label: 'Contact No - Mobile'+((validator.getMap()["mobile"]["validation_rules"]!="")?" *":""),
                                    controller: txtMobile,
 
                                   keyboardType: TextInputType.phone,
@@ -342,7 +342,7 @@ class _CustomersState extends State<CustomerCreate> {
 
                               (validator.getMap()["home"]!=null && validator.getMap()["home"]["show"])?
                               new IMTextField(
-                                  label: 'Home'+((validator.getMap()["home"]["validation_rules"]!=null)?" *":""),
+                                  label: 'Contact No - Home'+((validator.getMap()["home"]["validation_rules"]!="")?" *":""),
                                    controller: txtHome,
 
                                   keyboardType: TextInputType.phone,
@@ -353,7 +353,7 @@ class _CustomersState extends State<CustomerCreate> {
 
                               (validator.getMap()["worktelephone"]!=null && validator.getMap()["worktelephone"]["show"])?
                               new IMTextField(
-                                  label: 'Work'+((validator.getMap()["worktelephone"]["validation_rules"]!=null)?" *":""),
+                                  label: 'Contact No - Work'+((validator.getMap()["worktelephone"]["validation_rules"]!="")?" *":""),
                                    controller: txtWorktelephone,
 
                                   keyboardType: TextInputType.phone,
@@ -362,31 +362,25 @@ class _CustomersState extends State<CustomerCreate> {
                                     .validate(text, "worktelephone", widget),
                                   ):new SizedBox(),
 
-                              (validator.getMap()["email"]!=null && validator.getMap()["email"]["show"])?
-                              new IMTextField(
-                                  label: 'Email Address'+((validator.getMap()["email"]["validation_rules"]!=null)?" *":""),
-                                   controller: txtEmail,
-
-                                  keyboardType: TextInputType.emailAddress,
-                                  
-                                   validator: (text) => widget.validator
-                                    .validate(text, "email", widget),
-                                  ):new SizedBox(),
 
                               (validator.getMap()["private"]!=null && validator.getMap()["private"]["show"])?
                               new IMTextField(
-                                  label: 'Private'+((validator.getMap()["private"]["validation_rules"]!=null)?" *":""),
+                                  label: 'Email Address - Private'+((validator.getMap()["private"]["validation_rules"]!="")?" *":""),
                                    controller: txtPrivate,
                                   
+                                  keyboardType: TextInputType.emailAddress,
+
                                    validator: (text) => widget.validator
                                     .validate(text, "private", widget),
                                   ):new SizedBox(),
 
                               (validator.getMap()["work"]!=null && validator.getMap()["work"]["show"])?
                               new IMTextField(
-                                  label: 'Work'+((validator.getMap()["work"]["validation_rules"]!=null)?" *":""),
+                                  label: 'Email Address - Work'+((validator.getMap()["work"]["validation_rules"]!="")?" *":""),
                                    controller: txtWork,
                                   
+                                  keyboardType: TextInputType.emailAddress,
+
                                    validator: (text) => widget.validator
                                     .validate(text, "work", widget),
                                   ):new SizedBox(),

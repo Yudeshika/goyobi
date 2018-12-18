@@ -17,14 +17,15 @@ class Home extends StatelessWidget {
               onLayoutToggle: onLayoutToggle,
               
               minExtent: 150.0,
-              maxExtent: 200.0,
+              maxExtent: MediaQuery.of(context).size.width/2,
             ),
           ),
         
         
         SliverGrid(
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 200.0,
+            maxCrossAxisExtent: MediaQuery.of(context).size.width/2,
+            
             mainAxisSpacing: 2.0,
             crossAxisSpacing: 2.0,
             childAspectRatio: 2.0,

@@ -86,7 +86,7 @@ class _ProfileState extends State<Profile> {
                                 color: Colors.red,
                                 image: DecorationImage(
                                     image: NetworkImage(
-                                        'https://www.atlassian.com/dam/jcr:13a574c1-390b-4bfb-956b-6b6d114bf98c/max-rehkopf.png'),
+                                        'https://www.goldenglobes.com/sites/default/files/styles/portrait_medium/public/gallery_images/17-tomcruiseag.jpg?itok=qNj0cQGV&c=c9a73b7bdf609d72214d226ab9ea015e'),
                                     fit: BoxFit.cover),
                                 borderRadius: BorderRadius.all(Radius.circular(75.0)),
                                 boxShadow: [

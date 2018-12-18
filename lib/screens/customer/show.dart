@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../components/IM.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../screens/user/auth.dart';
 
 class CustomerView extends StatefulWidget {
@@ -49,7 +50,7 @@ class _CustomerViewState extends State<CustomerView> {
         //App Bar
         //App Bar
         appBar: new IMAppBar(
-          title: "CUSTOMER VIEW",
+          title: "CUSTOMER PROFILE",
           context: context,
         ),
 
@@ -58,18 +59,85 @@ class _CustomerViewState extends State<CustomerView> {
           children: <Widget>[
             ClipPath(
               child: Container(
-                color: Colors.black.withOpacity(0.8),
+          //       decoration: new BoxDecoration(
+          // image: new DecorationImage(
+          //   image: new NetworkImage("https://images.pexels.com/photos/952670/pexels-photo-952670.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"),
+          //   fit: BoxFit.cover,
+          //),
+        //),
+                // color: Colors.black.withOpacity(0.8),
               ),
-              clipper: getClipper(),
+              // clipper: getClipper(),
+            ),
+
+            Container(
+                  height: 40.0,
+                  width: MediaQuery.of(context).size.width,
+                  child: new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children:  <Widget>[
+                Container(
+                  height: 40.0,
+                  width: MediaQuery.of(context).size.width/3,
+                  child:RaisedButton(
+                    onPressed: (){
+                       launch("tel://" +
+                        widget.document[
+                          'mobile']);
+                    },
+                    // textColor: Colors.white,
+                    color: Colors.black.withOpacity(0.8),
+                    padding: const EdgeInsets.all(8.0),
+                    child:  Icon(
+                    Icons.add_call, size: 30.0, color: Colors.amberAccent,
+                  ),
+                  ),
+                ),
+                Container(
+                  height: 40.0,
+                  width: MediaQuery.of(context).size.width/3,
+                  child:RaisedButton(
+                    onPressed: (){
+                      launch("sms:" +
+                        widget.document[
+                          'mobile']);
+                    },
+                    // textColor: Colors.white,
+                    color: Colors.black.withOpacity(0.8),
+                    padding: const EdgeInsets.all(8.0),
+                    child:  Icon(
+                    Icons.chat, size: 30.0, color: Colors.greenAccent,
+                  ),
+                  ),
+                ),
+                Container(
+                  height: 40.0,
+                  width: MediaQuery.of(context).size.width/3,
+                  child:RaisedButton(
+                    onPressed: (){},
+                    // textColor: Colors.white,
+                    color: Colors.black.withOpacity(0.8),
+                    padding: const EdgeInsets.all(8.0),
+                    child:  Icon(
+                    Icons.add_a_photo, size: 30.0, color: Colors.blueAccent,
+                  ),
+                  ),
+                ),
+              
+              ],
+            ),
             ),
             Positioned(
               width: MediaQuery.of(context).size.width,
-              top: MediaQuery.of(context).size.height / 7,
+              top: MediaQuery.of(context).size.height / 12,
               child:Column(
                         children: <Widget>[
-                          Container(
-                            width: 150.0,
-                            height: 150.0,
+                          new Row(
+                            children: <Widget>[
+                          SizedBox(width: 20.0),
+                              Container(
+                            width: 80.0,
+                            height: 80.0,
                             decoration: BoxDecoration(
                                 color: Colors.red,
                                 image: DecorationImage(
@@ -81,22 +149,63 @@ class _CustomerViewState extends State<CustomerView> {
                                   BoxShadow(
                                       blurRadius: 7.0, color: Colors.black)
                                 ]),
-                          ),
-                          SizedBox(height: 35.0),
+                          )
+                          ,
+                          SizedBox(width: 20.0),
                           Text(
                             widget.document["name"] ,
                             style: TextStyle(
-                              fontSize: 30.0,
+                              fontSize: 20.0,
                               fontWeight: FontWeight.bold,
                             ),
+                          )
+                            ],
                           ),
-                          SizedBox(height: 15.0),
+                        
+                          
+                          SizedBox(height: 0.0),
                           Text(
-                            widget.document["email"],
+                            widget.document["mobile"],
                             style: TextStyle(
                               fontSize: 17.0,
                               fontStyle: FontStyle.italic,
                             ),
+                          ),
+                          SizedBox(height: 5.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 5.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(2.0),
+                                  
+                                  child: Text(
+                                    "SOCIAL SECURITY NO / NIC",
+                                    style: TextStyle(
+                                      color: Colors.blueGrey[200],
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 5.0,
+                                      margin: EdgeInsets.only(
+                                          top: 10.0, left: 10.0),
+                                      padding: EdgeInsets.all(2.0)
+                                      ,
+                                      child: Text(
+                                        "PERSONAL EMAIL",
+                                        style: TextStyle(
+                                          color: Colors.blueGrey[200],
+                                          fontSize: 12.0,
+                                        ),
+                                      ))),
+                            ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -108,23 +217,20 @@ class _CustomerViewState extends State<CustomerView> {
                                       EdgeInsets.only(top: 15.0, left: 10.0),
                                   padding: EdgeInsets.all(8.0),
                                   decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            blurRadius: 3.0, color: Colors.grey)
-                                      ]),
+                                      // color: Colors.white,
+                                      border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
                                   child: Text(
                                     widget.document["nic"],
                                     style: TextStyle(
-                                      color: Colors.grey,
+                                      color: Colors.grey[700],
                                       fontSize: 17.0,
                                     ),
                                   ),
                                 ),
                               ),
-                              Flexible(
+                              Expanded(
                                   child: Container(
                                       height: 40.0,
                                       margin: EdgeInsets.only(
@@ -132,20 +238,128 @@ class _CustomerViewState extends State<CustomerView> {
                                       padding: EdgeInsets.all(8.0),
                                       decoration: BoxDecoration(
                                           color: Colors.white,
-                                          border:
-                                              Border.all(color: Colors.grey),
-                                          borderRadius:
-                                              BorderRadius.circular(15.0),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                blurRadius: 3.0,
-                                                color: Colors.grey)
-                                          ]),
+                                         border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                          ),
                                       child: Text(
-                                        widget.companyName,
+                                        widget.document["email"],
                                         style: TextStyle(
-                                          color: Colors.grey,
+                                          color: Colors.grey[700],
                                           fontSize: 17.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 5.0,
+                                  margin:
+                                      EdgeInsets.only(top: 10.0, left: 10.0),
+                                  padding: EdgeInsets.all(2.0),
+                                  
+                                  child: Text(
+                                    "CONTACT NO - HOME",
+                                    style: TextStyle(
+                                      color: Colors.blueGrey[200],
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 5.0,
+                                      margin: EdgeInsets.only(
+                                          top: 10.0, left: 10.0),
+                                      padding: EdgeInsets.all(2.0)
+                                      ,
+                                      child: Text(
+                                        "HOME ADDRESS / REGISTER ADDRESS",
+                                        style: TextStyle(
+                                          color: Colors.blueGrey[200],
+                                          fontSize: 12.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 15.0),
+                                  padding: EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
+                                  child: Text(
+                                    widget.document["mobile"],
+                                    style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontSize: 17.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                margin: EdgeInsets.only(
+                                    top: 15.0, left: 15.0, right: 15.0),
+                                padding: EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                child: Text(
+                                  widget.document["address"],
+                                  style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontSize: 17.0,
+                                  ),
+                                ),
+                              )),
+                            ],
+                          ),
+
+                          
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 5.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(2.0),
+                                  
+                                  child: Text(
+                                    "BIRTHDAY",
+                                    style: TextStyle(
+                                      color: Colors.blueGrey[200],
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 5.0,
+                                      margin: EdgeInsets.only(
+                                          top: 10.0, left: 10.0),
+                                      padding: EdgeInsets.all(2.0)
+                                      ,
+                                      child: Text(
+                                        "GENDER",
+                                        style: TextStyle(
+                                          color: Colors.blueGrey[200],
+                                          fontSize: 12.0,
                                         ),
                                       ))),
                             ],
@@ -160,16 +374,13 @@ class _CustomerViewState extends State<CustomerView> {
                                   padding: EdgeInsets.all(8.0),
                                   decoration: BoxDecoration(
                                       color: Colors.white,
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            blurRadius: 3.0, color: Colors.grey)
-                                      ]),
+                                      border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
                                   child: Text(
-                                    widget.document["mobile"],
+                                    widget.document["bday"],
                                     style: TextStyle(
-                                      color: Colors.grey,
+                                      color: Colors.grey[700],
                                       fontSize: 17.0,
                                     ),
                                   ),
@@ -179,24 +390,215 @@ class _CustomerViewState extends State<CustomerView> {
                                   child: Container(
                                 height: 40.0,
                                 margin: EdgeInsets.only(
-                                    top: 15.0, left: 15.0, right: 15.0),
+                                    top: 15.0, left: 10.0, right: 15.0),
                                 padding: EdgeInsets.all(8.0),
                                 decoration: BoxDecoration(
                                     color: Colors.white,
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          blurRadius: 3.0, color: Colors.grey)
-                                    ]),
+                                    border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
                                 child: Text(
-                                  widget.document["home"],
+                                  (widget.document["gender"]==1)?"Male":"Female",
                                   style: TextStyle(
-                                    color: Colors.grey,
+                                    color: Colors.grey[700],
                                     fontSize: 17.0,
                                   ),
                                 ),
                               )),
+                            ],
+                          ),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 5.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(2.0),
+                                  
+                                  child: Text(
+                                    "HEIGHT (cm)",
+                                    style: TextStyle(
+                                      color: Colors.blueGrey[200],
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 5.0,
+                                      margin: EdgeInsets.only(
+                                          top: 10.0, left: 10.0),
+                                      padding: EdgeInsets.all(2.0)
+                                      ,
+                                      child: Text(
+                                        "WEIGHT (Kg)",
+                                        style: TextStyle(
+                                          color: Colors.blueGrey[200],
+                                          fontSize: 12.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 40.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 15.0),
+                                  padding: EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
+                                  child: Text(
+                                    widget.document["height"],
+                                    style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontSize: 17.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                height: 40.0,
+                                margin: EdgeInsets.only(
+                                    top: 15.0, left: 10.0, right: 15.0),
+                                padding: EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
+                                child: Text(
+                                  widget.document["weight"],
+                                  style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontSize: 17.0,
+                                  ),
+                                ),
+                              )),
+                            ],
+                          ),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 5.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(2.0),
+                                  
+                                  child: Text(
+                                    "MARITAL STATUS",
+                                    style: TextStyle(
+                                      color: Colors.blueGrey[200],
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 5.0,
+                                      margin: EdgeInsets.only(
+                                          top: 10.0, left: 10.0),
+                                      padding: EdgeInsets.all(2.0)
+                                      ,
+                                      child: Text(
+                                        "CHILDREN",
+                                        style: TextStyle(
+                                          color: Colors.blueGrey[200],
+                                          fontSize: 12.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+                          Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 40.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 15.0),
+                                  padding: EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
+                                  child: Text(
+                                    (widget.document["status"]==1)?"Married":"Unmarried",
+                                    style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontSize: 17.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                height: 40.0,
+                                margin: EdgeInsets.only(
+                                    top: 15.0, left: 10.0, right: 15.0),
+                                padding: EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
+                                child: Text(
+                                  widget.document["children"],
+                                  style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontSize: 17.0,
+                                  ),
+                                ),
+                              )),
+                            ],
+                          ),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 5.0,
+                                  margin:
+                                      EdgeInsets.only(top: 10.0, left: 10.0),
+                                  padding: EdgeInsets.all(2.0),
+                                  
+                                  child: Text(
+                                    "OCCUPATION",
+                                    style: TextStyle(
+                                      color: Colors.blueGrey[200],
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 5.0,
+                                      margin: EdgeInsets.only(
+                                          top: 5.0, left: 10.0),
+                                      padding: EdgeInsets.all(2.0)
+                                      ,
+                                      child: Text(
+                                        "CONTACT NO - OFFICE",
+                                        style: TextStyle(
+                                          color: Colors.blueGrey[200],
+                                          fontSize: 12.0,
+                                        ),
+                                      ))),
                             ],
                           ),
                           Row(
@@ -208,16 +610,13 @@ class _CustomerViewState extends State<CustomerView> {
                                   padding: EdgeInsets.all(8.0),
                                   decoration: BoxDecoration(
                                       color: Colors.white,
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            blurRadius: 3.0, color: Colors.grey)
-                                      ]),
+                                      border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
                                   child: Text(
-                                    widget.countryName,
+                                     widget.document["occupation"],
                                     style: TextStyle(
-                                      color: Colors.grey,
+                                      color: Colors.grey[700],
                                       fontSize: 17.0,
                                     ),
                                   ),
@@ -230,20 +629,53 @@ class _CustomerViewState extends State<CustomerView> {
                                 padding: EdgeInsets.all(8.0),
                                 decoration: BoxDecoration(
                                     color: Colors.white,
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          blurRadius: 3.0, color: Colors.grey)
-                                    ]),
+                                    border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
                                 child: Text(
-                                  'LKR',
+                                  widget.document["income"],
                                   style: TextStyle(
-                                    color: Colors.grey,
+                                    color: Colors.grey[700],
                                     fontSize: 17.0,
                                   ),
                                 ),
                               )),
+                            ],
+                          ),
+
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 5.0,
+                                  margin:
+                                      EdgeInsets.only(top: 10.0, left: 10.0),
+                                  padding: EdgeInsets.all(2.0),
+                                  
+                                  child: Text(
+                                    "HOME ADDRESS / REGISTER ADDRESS",
+                                    style: TextStyle(
+                                      color: Colors.blueGrey[200],
+                                      fontSize: 12.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 5.0,
+                                      margin: EdgeInsets.only(
+                                          top: 5.0, left: 10.0),
+                                      padding: EdgeInsets.all(2.0)
+                                      ,
+                                      child: Text(
+                                        "WORK ADDRESS",
+                                        style: TextStyle(
+                                          color: Colors.blueGrey[200],
+                                          fontSize: 12.0,
+                                        ),
+                                      ))),
                             ],
                           ),
                           Row(
@@ -255,16 +687,13 @@ class _CustomerViewState extends State<CustomerView> {
                                   padding: EdgeInsets.all(8.0),
                                   decoration: BoxDecoration(
                                       color: Colors.white,
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            blurRadius: 3.0, color: Colors.grey)
-                                      ]),
+                                      border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
                                   child: Text(
-                                    'Office - '+ widget.document["worktelephone"].toString(),
+                                     widget.document["worktelephone"].toString(),
                                     style: TextStyle(
-                                      color: Colors.grey,
+                                      color: Colors.grey[700],
                                       fontSize: 17.0,
                                     ),
                                   ),
@@ -277,22 +706,20 @@ class _CustomerViewState extends State<CustomerView> {
                                 padding: EdgeInsets.all(8.0),
                                 decoration: BoxDecoration(
                                     color: Colors.white,
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          blurRadius: 3.0, color: Colors.grey)
-                                    ]),
+                                    border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
                                 child: Text(
-                                  widget.document["mobile"],
+                                  widget.document["workaddress"],
                                   style: TextStyle(
-                                    color: Colors.grey,
+                                    color: Colors.grey[700],
                                     fontSize: 17.0,
                                   ),
                                 ),
                               )),
                             ],
                           ),
+
                           SizedBox(height: 25.0),
                           Container(
                             height: 35.0,
@@ -330,8 +757,9 @@ class getClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
     var path = new Path();
 
-    path.lineTo(0.0, size.height / 2.2);
-    path.lineTo(size.width + 160, 0.0);
+    path.lineTo(0.0, 50.0);
+    path.lineTo(size.width , 50.0);
+    path.lineTo(size.width , 0.0);
     path.close();
     return path;
   }

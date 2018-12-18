@@ -159,7 +159,7 @@ class _MotorState extends State<MotorCreate> {
                           
                           (validator.getMap()["vehicleno"]!=null && validator.getMap()["vehicleno"]["show"])?
                           new IMTextField(
-                            label: 'Vehicle Number'+((validator.getMap()["vehicleno"]["validation_rules"]!=null)?" *":""),
+                            label: 'Vehicle Number'+((validator.getMap()["vehicleno"]["validation_rules"]!="")?" *":""),
                             controller:txtVehicleno,
 
                             validator: (text) => widget.validator
@@ -169,7 +169,7 @@ class _MotorState extends State<MotorCreate> {
 
 			                    (validator.getMap()["sum"]!=null && validator.getMap()["sum"]["show"])?
                           new IMTextField(
-                            label: 'SUM'+((validator.getMap()["sum"]["validation_rules"]!=null)?" *":""),
+                            label: 'SUM'+((validator.getMap()["sum"]["validation_rules"]!="")?" *":""),
                             controller:txtSum,
 
                             keyboardType: TextInputType.number,
@@ -181,7 +181,7 @@ class _MotorState extends State<MotorCreate> {
 
 			                    (validator.getMap()["chasisno"]!=null && validator.getMap()["chasisno"]["show"])?
                           new IMTextField(
-                            label: 'Chasis Number'+((validator.getMap()["chasisno"]["validation_rules"]!=null)?" *":""),
+                            label: 'Chasis Number'+((validator.getMap()["chasisno"]["validation_rules"]!="")?" *":""),
                             controller:txtChasisno,
 
                             validator: (text) => widget.validator
@@ -249,7 +249,24 @@ class _MotorState extends State<MotorCreate> {
                                     ),
                                     new Container(
                                         width: 50.0,
-                                        child: new Text("2 Weeks"),
+                                        child: new Text("1 Month"),
+                                      )
+                                    ],)
+                                    ,
+                                    new Row(children: <Widget>[
+                                      new Radio(
+                                      groupValue: _radioPeriod,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          _radioPeriod = val;
+                                        });
+                                      },
+                                      activeColor: Colors.red,
+                                      value: 3,
+                                    ),
+                                    new Container(
+                                        width: 50.0,
+                                        child: new Text("1 Year"),
                                       )
                                     ],)
                                     
@@ -297,7 +314,7 @@ class _MotorState extends State<MotorCreate> {
                                         value: 1,
                                       ),
                                       new Container(
-                                        width: 50.0,
+                                        width: 80.0,
                                         child: new Text("Comprehensive"),
                                       )
                                     ],)
@@ -342,7 +359,7 @@ class _MotorState extends State<MotorCreate> {
                                         value: 1,
                                       ),
                                       new Container(
-                                        width: 50.0,
+                                        width: 80.0,
                                         child: new Text("Private"),
                                       )
                                     ],)
@@ -387,7 +404,7 @@ class _MotorState extends State<MotorCreate> {
                                         value: 1,
                                       ),
                                       new Container(
-                                        width: 50.0,
+                                        width: 80.0,
                                         child: new Text("New"),
                                       )
                                     ],)
@@ -458,7 +475,7 @@ class _MotorState extends State<MotorCreate> {
 			   
 			                    (validator.getMap()["premium"]!=null && validator.getMap()["premium"]["show"])?
                           new IMTextField(
-                            label: 'Premium'+((validator.getMap()["premium"]["validation_rules"]!=null)?" *":""),
+                            label: 'Premium'+((validator.getMap()["premium"]["validation_rules"]!="")?" *":""),
                             controller:txtPremium,
 
                             keyboardType: TextInputType.number,
@@ -470,7 +487,7 @@ class _MotorState extends State<MotorCreate> {
 
 			                    (validator.getMap()["paid"]!=null && validator.getMap()["paid"]["show"])?
                           new IMTextField(
-                            label: 'Paid Amount'+((validator.getMap()["paid"]["validation_rules"]!=null)?" *":""),
+                            label: 'Paid Amount'+((validator.getMap()["paid"]["validation_rules"]!="")?" *":""),
                             controller:txtPaid,
 
                             keyboardType: TextInputType.number,
@@ -481,7 +498,7 @@ class _MotorState extends State<MotorCreate> {
 
 			                    (validator.getMap()["due"]!=null && validator.getMap()["due"]["show"])?
                           new IMTextField(
-                            label: 'Due Amount'+((validator.getMap()["due"]["validation_rules"]!=null)?" *":""),
+                            label: 'Due Amount'+((validator.getMap()["due"]["validation_rules"]!="")?" *":""),
                             controller:txtDue,
 
                             keyboardType: TextInputType.number,
@@ -491,18 +508,30 @@ class _MotorState extends State<MotorCreate> {
 
                           ):new SizedBox(),
 
-			                    (validator.getMap()["duedate"]!=null && validator.getMap()["duedate"]["show"])?
-                          new IMTextField(
-                            label: 'Due Date'+((validator.getMap()["duedate"]["validation_rules"]!=null)?" *":""),
-                            controller:txtDuedate,
+			                     new SizedBox(height: 20.0,),
+
+                          (validator.getMap()["duedate"]!=null && validator.getMap()["duedate"]["show"])?
+			                    new Text("Due Date"):SizedBox(),
+
+                          (validator.getMap()["duedate"]!=null && validator.getMap()["duedate"]["show"])?
+                          new DateTimePickerFormField(
+                            dateOnly: true,
+                            controller: txtDuedate,
 
                             validator: (text) => widget.validator
-                                    .validate(text, "duedate", widget),
-                          ):new SizedBox(),
+                                    .validateDate(text, "duedate"),
+
+                            format: dateFormat,
+                            onChanged: (date) {
+                              Scaffold
+                              .of(context)
+                              .showSnackBar(SnackBar(content: Text('$date')));
+                            },
+                          ):SizedBox(),
 
 			                    (validator.getMap()["engine"]!=null && validator.getMap()["engine"]["show"])?
                           new IMTextField(
-                            label: 'Engine Number'+((validator.getMap()["engine"]["validation_rules"]!=null)?" *":""),
+                            label: 'Engine Number'+((validator.getMap()["engine"]["validation_rules"]!="")?" *":""),
                             controller:txtEngine,
 
                             validator: (text) => widget.validator
@@ -511,7 +540,7 @@ class _MotorState extends State<MotorCreate> {
 
 			                    (validator.getMap()["model"]!=null && validator.getMap()["model"]["show"])?
                           new IMTextField(
-                            label: 'Model'+((validator.getMap()["model"]["validation_rules"]!=null)?" *":""),
+                            label: 'Model'+((validator.getMap()["model"]["validation_rules"]!="")?" *":""),
                             controller:txtModel,
 
                             validator: (text) => widget.validator
@@ -520,7 +549,7 @@ class _MotorState extends State<MotorCreate> {
 
 			                    (validator.getMap()["yearofmake"]!=null && validator.getMap()["yearofmake"]["show"])?
                           new IMTextField(
-                            label: 'Year of Make'+((validator.getMap()["yearofmake"]["validation_rules"]!=null)?" *":""),
+                            label: 'Year of Make'+((validator.getMap()["yearofmake"]["validation_rules"]!="")?" *":""),
                             controller:txtYearofmake,
 
                             validator: (text) => widget.validator
@@ -529,7 +558,7 @@ class _MotorState extends State<MotorCreate> {
 
 			                    (validator.getMap()["insurance"]!=null && validator.getMap()["insurance"]["show"])?
                           new IMTextField(
-                            label: 'Insurance For'+((validator.getMap()["insurance"]["validation_rules"]!=null)?" *":""),
+                            label: 'Insurance For'+((validator.getMap()["insurance"]["validation_rules"]!="")?" *":""),
                             controller:txtInsurance,
 
                             validator: (text) => widget.validator

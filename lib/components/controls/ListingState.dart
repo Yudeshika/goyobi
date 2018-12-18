@@ -60,6 +60,7 @@ class ListingState<T extends StatefulWidget> extends State<T>
     });
   }
 
+
   @override
   initState() {
     _controller = new AnimationController(

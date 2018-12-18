@@ -45,7 +45,7 @@ class _PolicyMotorViewState extends State<PolicyMotorView> {
   }
 
   @override
-  Widget build(BuildContext context) => new Scaffold(
+    Widget build(BuildContext context) => new Scaffold(
         //App Bar
         //App Bar
         appBar: new IMAppBar(
@@ -54,35 +54,44 @@ class _PolicyMotorViewState extends State<PolicyMotorView> {
         ),
 
         //Content of tabs
-        body: new Stack(
+        body: 
+        //---------------------------------
+        //Tabbed Pane Start
+                new Container(
+                  child: DefaultTabController(
+        length: 2,
+        child: Scaffold(
+          
+          appBar: AppBar(
+            automaticallyImplyLeading: false,
+            title: TabBar(
+              tabs: [
+                Tab(icon: Icon(Icons.assignment),
+                text: "POLICY DETAILS",
+                ),
+                Tab(icon: Icon(Icons.attach_money),
+                text: "PAYMENT DETAILS",
+                ),
+              ],
+            ),
+          ),
+          body: TabBarView(
+            children: [
+              
+             
+               new Stack(
           children: <Widget>[
             ClipPath(
               child: Container(
-                color: Colors.black.withOpacity(0.8),
+                // color: Colors.black.withOpacity(0.8),
               ),
-              clipper: getClipper(),
+              // clipper: getClipper(),
             ),
             Positioned(
               width: MediaQuery.of(context).size.width,
-              top: MediaQuery.of(context).size.height / 7,
+              top: MediaQuery.of(context).size.height / 22,
               child:Column(
                         children: <Widget>[
-                          Container(
-                            width: 150.0,
-                            height: 150.0,
-                            decoration: BoxDecoration(
-                                color: Colors.red,
-                                image: DecorationImage(
-                                    image: NetworkImage(
-                                        'https://www.atlassian.com/dam/jcr:13a574c1-390b-4bfb-956b-6b6d114bf98c/max-rehkopf.png'),
-                                    fit: BoxFit.cover),
-                                borderRadius: BorderRadius.all(Radius.circular(75.0)),
-                                boxShadow: [
-                                  BoxShadow(
-                                      blurRadius: 7.0, color: Colors.black)
-                                ]),
-                          ),
-                          SizedBox(height: 35.0),
                           Text(
                             widget.document["name"] ,
                             style: TextStyle(
@@ -92,11 +101,48 @@ class _PolicyMotorViewState extends State<PolicyMotorView> {
                           ),
                           SizedBox(height: 15.0),
                           Text(
-                            widget.document["policyname"],
+                            widget.document["vehicleno"],
                             style: TextStyle(
                               fontSize: 17.0,
                               fontStyle: FontStyle.italic,
                             ),
+                          ),
+                          
+                          SizedBox(height: 5.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 5.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(2.0),
+                                  
+                                  child: Text(
+                                    "SUM",
+                                    style: TextStyle(
+                                      color: Colors.blueGrey[200],
+                                      fontSize: 11.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 5.0,
+                                      margin: EdgeInsets.only(
+                                          top: 10.0, left: 10.0),
+                                      padding: EdgeInsets.all(2.0)
+                                      ,
+                                      child: Text(
+                                        "CHASIS NO",
+                                        style: TextStyle(
+                                          color: Colors.blueGrey[200],
+                                          fontSize: 11.0,
+                                        ),
+                                      ))),
+                            ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -108,23 +154,20 @@ class _PolicyMotorViewState extends State<PolicyMotorView> {
                                       EdgeInsets.only(top: 15.0, left: 10.0),
                                   padding: EdgeInsets.all(8.0),
                                   decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            blurRadius: 3.0, color: Colors.grey)
-                                      ]),
+                                      // color: Colors.white,
+                                      border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
                                   child: Text(
-                                    widget.document["policyno"],
+                                    widget.document["sum"].toString(),
                                     style: TextStyle(
-                                      color: Colors.grey,
+                                      color: Colors.grey[700],
                                       fontSize: 17.0,
                                     ),
                                   ),
                                 ),
                               ),
-                              Flexible(
+                              Expanded(
                                   child: Container(
                                       height: 40.0,
                                       margin: EdgeInsets.only(
@@ -132,44 +175,74 @@ class _PolicyMotorViewState extends State<PolicyMotorView> {
                                       padding: EdgeInsets.all(8.0),
                                       decoration: BoxDecoration(
                                           color: Colors.white,
-                                          border:
-                                              Border.all(color: Colors.grey),
-                                          borderRadius:
-                                              BorderRadius.circular(15.0),
-                                          boxShadow: [
-                                            BoxShadow(
-                                                blurRadius: 3.0,
-                                                color: Colors.grey)
-                                          ]),
+                                         border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                          ),
                                       child: Text(
-                                        widget.document["commenceddate"],
+                                        widget.document["chasisno"].toString(),
                                         style: TextStyle(
-                                          color: Colors.grey,
+                                          color: Colors.grey[700],
                                           fontSize: 17.0,
                                         ),
                                       ))),
                             ],
                           ),
+
+                          
+                          SizedBox(height: 5.0),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 5.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(2.0),
+                                  
+                                  child: Text(
+                                    "START DAY",
+                                    style: TextStyle(
+                                      color: Colors.blueGrey[200],
+                                      fontSize: 11.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 5.0,
+                                      margin: EdgeInsets.only(
+                                          top: 10.0, left: 10.0),
+                                      padding: EdgeInsets.all(2.0)
+                                      ,
+                                      child: Text(
+                                        "PERIOD OF POLICY",
+                                        style: TextStyle(
+                                          color: Colors.blueGrey[200],
+                                          fontSize: 11.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Expanded(
                                 child: Container(
                                   height: 40.0,
                                   margin:
-                                      EdgeInsets.only(top: 15.0, left: 15.0),
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
                                   padding: EdgeInsets.all(8.0),
                                   decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            blurRadius: 3.0, color: Colors.grey)
-                                      ]),
+                                      // color: Colors.white,
+                                      border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
                                   child: Text(
-                                    widget.document["proposalno"],
+                                    widget.document["start"],
                                     style: TextStyle(
-                                      color: Colors.grey,
+                                      color: Colors.grey[700],
                                       fontSize: 17.0,
                                     ),
                                   ),
@@ -177,47 +250,80 @@ class _PolicyMotorViewState extends State<PolicyMotorView> {
                               ),
                               Expanded(
                                   child: Container(
-                                height: 40.0,
-                                margin: EdgeInsets.only(
-                                    top: 15.0, left: 15.0, right: 15.0),
-                                padding: EdgeInsets.all(8.0),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          blurRadius: 3.0, color: Colors.grey)
-                                    ]),
-                                child: Text(
-                                  widget.document["premium"],
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 17.0,
-                                  ),
-                                ),
-                              )),
+                                      height: 40.0,
+                                      margin: EdgeInsets.only(
+                                          top: 15.0, left: 10.0),
+                                      padding: EdgeInsets.all(8.0),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                         border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                          ),
+                                      child: Text(
+                                        widget.document["period"].toString(),
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 17.0,
+                                        ),
+                                      ))),
                             ],
                           ),
+
+
+                          SizedBox(height: 5.0),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Expanded(
                                 child: Container(
+                                  height: 5.0,
                                   margin:
-                                      EdgeInsets.only(top: 15.0, left: 15.0),
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(2.0),
+                                  
+                                  child: Text(
+                                    "RENEWAL DATE",
+                                    style: TextStyle(
+                                      color: Colors.blueGrey[200],
+                                      fontSize: 11.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 5.0,
+                                      margin: EdgeInsets.only(
+                                          top: 10.0, left: 10.0),
+                                      padding: EdgeInsets.all(2.0)
+                                      ,
+                                      child: Text(
+                                        "TYPE OF POLICY",
+                                        style: TextStyle(
+                                          color: Colors.blueGrey[200],
+                                          fontSize: 11.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 40.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
                                   padding: EdgeInsets.all(8.0),
                                   decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            blurRadius: 3.0, color: Colors.grey)
-                                      ]),
+                                      // color: Colors.white,
+                                      border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
                                   child: Text(
-                                    widget.countryName,
+                                    widget.document["renewal"],
                                     style: TextStyle(
-                                      color: Colors.grey,
+                                      color: Colors.grey[700],
                                       fontSize: 17.0,
                                     ),
                                   ),
@@ -225,46 +331,405 @@ class _PolicyMotorViewState extends State<PolicyMotorView> {
                               ),
                               Expanded(
                                   child: Container(
-                                margin: EdgeInsets.only(
-                                    top: 15.0, left: 15.0, right: 15.0),
-                                padding: EdgeInsets.all(8.0),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          blurRadius: 3.0, color: Colors.grey)
-                                    ]),
-                                child: Text(
-                                  'LKR',
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 17.0,
-                                  ),
-                                ),
-                              )),
+                                      height: 40.0,
+                                      margin: EdgeInsets.only(
+                                          top: 15.0, left: 10.0),
+                                      padding: EdgeInsets.all(8.0),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                         border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                          ),
+                                      child: Text(
+                                        (widget.document["policytype"]==1)?"Comprehensive":"Tentative",
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 17.0,
+                                        ),
+                                      ))),
                             ],
                           ),
+
+
+                          SizedBox(height: 5.0),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Expanded(
                                 child: Container(
+                                  height: 5.0,
                                   margin:
-                                      EdgeInsets.only(top: 15.0, left: 15.0),
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(2.0),
+                                  
+                                  child: Text(
+                                    "CATEGORY OF POLICY",
+                                    style: TextStyle(
+                                      color: Colors.blueGrey[200],
+                                      fontSize: 11.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 5.0,
+                                      margin: EdgeInsets.only(
+                                          top: 10.0, left: 10.0),
+                                      padding: EdgeInsets.all(2.0)
+                                      ,
+                                      child: Text(
+                                        "TYPE OF BUSINESS",
+                                        style: TextStyle(
+                                          color: Colors.blueGrey[200],
+                                          fontSize: 11.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 40.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
                                   padding: EdgeInsets.all(8.0),
                                   decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(color: Colors.grey),
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      boxShadow: [
-                                        BoxShadow(
-                                            blurRadius: 3.0, color: Colors.grey)
-                                      ]),
+                                      // color: Colors.white,
+                                      border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
+                                  child: Text(
+                                    (widget.document["policycategory"]==1)?"Private":"Hiring",
+                                    style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontSize: 17.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 40.0,
+                                      margin: EdgeInsets.only(
+                                          top: 15.0, left: 10.0),
+                                      padding: EdgeInsets.all(8.0),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                         border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                          ),
+                                      child: Text(
+                                        (widget.document["business"]==1)?"New":"Renewal",
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 17.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+
+                          
+                          SizedBox(height: 5.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 5.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(2.0),
+                                  
+                                  child: Text(
+                                    "LEASING FACILITY?",
+                                    style: TextStyle(
+                                      color: Colors.blueGrey[200],
+                                      fontSize: 11.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 5.0,
+                                      margin: EdgeInsets.only(
+                                          top: 10.0, left: 10.0),
+                                      padding: EdgeInsets.all(2.0)
+                                      ,
+                                      child: Text(
+                                        "ENGINE NO",
+                                        style: TextStyle(
+                                          color: Colors.blueGrey[200],
+                                          fontSize: 11.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 40.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                      // color: Colors.white,
+                                      border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
+                                  child: Text(
+                                    (widget.document["leasing"]==1)?"Yes":"No",
+                                    style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontSize: 17.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 40.0,
+                                      margin: EdgeInsets.only(
+                                          top: 15.0, left: 10.0),
+                                      padding: EdgeInsets.all(8.0),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                         border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                          ),
+                                      child: Text(
+                                        widget.document["engine"],
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 17.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+
+                            
+                          SizedBox(height: 5.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 5.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(2.0),
+                                  
+                                  child: Text(
+                                    "MODEL",
+                                    style: TextStyle(
+                                      color: Colors.blueGrey[200],
+                                      fontSize: 11.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 5.0,
+                                      margin: EdgeInsets.only(
+                                          top: 10.0, left: 10.0),
+                                      padding: EdgeInsets.all(2.0)
+                                      ,
+                                      child: Text(
+                                        "MANUFACTURE YEAR",
+                                        style: TextStyle(
+                                          color: Colors.blueGrey[200],
+                                          fontSize: 11.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 40.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                      // color: Colors.white,
+                                      border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
+                                  child: Text(
+                                    widget.document["model"],
+                                    style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontSize: 17.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 40.0,
+                                      margin: EdgeInsets.only(
+                                          top: 15.0, left: 10.0),
+                                      padding: EdgeInsets.all(8.0),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                         border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                          ),
+                                      child: Text(
+                                        widget.document["yearofmake"],
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 17.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+
+  
+                          SizedBox(height: 5.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 5.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(2.0),
+                                  
+                                  child: Text(
+                                    "INSURANCE FOR",
+                                    style: TextStyle(
+                                      color: Colors.blueGrey[200],
+                                      fontSize: 11.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 5.0,
+                                      margin: EdgeInsets.only(
+                                          top: 10.0, left: 10.0),
+                                      padding: EdgeInsets.all(2.0)
+                                      ,
+                                      child: Text(
+                                        "PREMIUM",
+                                        style: TextStyle(
+                                          color: Colors.blueGrey[200],
+                                          fontSize: 11.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 40.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                      // color: Colors.white,
+                                      border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
+                                  child: Text(
+                                    widget.document["insurance"],
+                                    style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontSize: 17.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 40.0,
+                                      margin: EdgeInsets.only(
+                                          top: 15.0, left: 10.0),
+                                      padding: EdgeInsets.all(8.0),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                         border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                          ),
+                                      child: Text(
+                                        widget.document["premium"].toString(),
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 17.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+                
+
+                  
+                          SizedBox(height: 5.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 5.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(2.0),
+                                  
+                                  child: Text(
+                                    "PAID AMOUNT",
+                                    style: TextStyle(
+                                      color: Colors.blueGrey[200],
+                                      fontSize: 11.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 5.0,
+                                      margin: EdgeInsets.only(
+                                          top: 10.0, left: 10.0),
+                                      padding: EdgeInsets.all(2.0)
+                                      ,
+                                      child: Text(
+                                        "DUE AMOUNT",
+                                        style: TextStyle(
+                                          color: Colors.blueGrey[200],
+                                          fontSize: 11.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 40.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                      // color: Colors.white,
+                                      border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
                                   child: Text(
                                     widget.document["paid"].toString(),
                                     style: TextStyle(
-                                      color: Colors.grey,
+                                      color: Colors.grey[700],
                                       fontSize: 17.0,
                                     ),
                                   ),
@@ -272,48 +737,25 @@ class _PolicyMotorViewState extends State<PolicyMotorView> {
                               ),
                               Expanded(
                                   child: Container(
-                                margin: EdgeInsets.only(
-                                    top: 15.0, left: 15.0, right: 15.0),
-                                padding: EdgeInsets.all(8.0),
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    border: Border.all(color: Colors.grey),
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    boxShadow: [
-                                      BoxShadow(
-                                          blurRadius: 3.0, color: Colors.grey)
-                                    ]),
-                                child: Text(
-                                  widget.document["due"],
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                    fontSize: 17.0,
-                                  ),
-                                ),
-                              )),
+                                      height: 40.0,
+                                      margin: EdgeInsets.only(
+                                          top: 15.0, left: 10.0),
+                                      padding: EdgeInsets.all(8.0),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                         border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                          ),
+                                      child: Text(
+                                        widget.document["due"].toString(),
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 17.0,
+                                        ),
+                                      ))),
                             ],
                           ),
-                          SizedBox(height: 25.0),
-                          Container(
-                            height: 35.0,
-                            width: 105.0,
-                            child: Material(
-                              // borderRadius: BorderRadius.circular(20.0),
-                              shadowColor: Colors.greenAccent,
-                              color: Colors.green,
-                              elevation: 7.0,
-                              child: GestureDetector(
-                                onTap: () {},
-                                child: Center(
-                                  child: Text(
-                                    'Edit Policy',
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20.0),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
+
                         ],
                     )
                 
@@ -321,6 +763,18 @@ class _PolicyMotorViewState extends State<PolicyMotorView> {
             )
           ],
         ),
+                
+              new SingleChildScrollView(
+                child:Text("test")
+              )
+              
+            ],
+          ),
+        )
+                  )
+            )
+        //--------------------------------
+        
                 
       );
 }

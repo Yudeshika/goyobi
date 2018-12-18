@@ -226,7 +226,7 @@ class TabsState extends State<Tabs>  with TickerProviderStateMixin{
                 ),
                 child: new Center(
                   child: new Image.asset('assets/common/logo.png',
-                        height: 54.0,
+                        height: 80.0,
                         fit: BoxFit.fitHeight),
                 ),
               ),

@@ -99,6 +99,7 @@ class _LifeState extends State<LifeCreate> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: <Widget>[
                           
+                          new Text("Select Customer"),
                           StreamBuilder(
                                 stream: Firestore.instance
                                     .collection("customers")
@@ -155,7 +156,7 @@ class _LifeState extends State<LifeCreate> {
 			                    
                           (validator.getMap()["proposalno"]!=null && validator.getMap()["proposalno"]["show"])?
                           new IMTextField(
-                            label: 'Proposal Number'+((validator.getMap()["proposalno"]["validation_rules"]!=null)?" *":""),
+                            label: 'Proposal Number'+((validator.getMap()["proposalno"]["validation_rules"]!="")?" *":""),
                             controller:txtProposalno,
                             
                             validator: (text) => widget.validator
@@ -177,7 +178,7 @@ class _LifeState extends State<LifeCreate> {
 			                    
                           (validator.getMap()["policyname"]!=null && validator.getMap()["policyname"]["show"])?
                           new IMTextField(
-                            label: 'Name of Policy'+((validator.getMap()["policyname"]["validation_rules"]!=null)?" *":""),
+                            label: 'Name of Policy'+((validator.getMap()["policyname"]["validation_rules"]!="")?" *":""),
                             controller:txtPolicyname,
 
                             validator: (text) => widget.validator
@@ -218,7 +219,7 @@ class _LifeState extends State<LifeCreate> {
 			                    
                           (validator.getMap()["enddate"]!=null && validator.getMap()["enddate"]["show"])?
                           new IMTextField(
-                            label: 'End Date'+((validator.getMap()["enddate"]["validation_rules"]!=null)?" *":""),
+                            label: 'End Date'+((validator.getMap()["enddate"]["validation_rules"]!="")?" *":""),
                             controller:txtEnddate,
 
                             validator: (text) => widget.validator
@@ -228,7 +229,7 @@ class _LifeState extends State<LifeCreate> {
 			                    
                           (validator.getMap()["premium"]!=null && validator.getMap()["premium"]["show"])?
                           new IMTextField(
-                            label: 'Premium'+((validator.getMap()["premium"]["validation_rules"]!=null)?" *":""),
+                            label: 'Premium'+((validator.getMap()["premium"]["validation_rules"]!="")?" *":""),
                             controller:txtPremium,
 
                             keyboardType: TextInputType.number,
@@ -285,7 +286,7 @@ class _LifeState extends State<LifeCreate> {
  
 			                    (validator.getMap()["nextpayment"]!=null && validator.getMap()["nextpayment"]["show"])?
                           new IMTextField(
-                            label: 'Next Payment Date'+((validator.getMap()["nextpayment"]["validation_rules"]!=null)?" *":""),
+                            label: 'Next Payment Date'+((validator.getMap()["nextpayment"]["validation_rules"]!="")?" *":""),
                             controller:txtNextpayment,
 
                             validator: (text) => widget.validator
@@ -295,7 +296,7 @@ class _LifeState extends State<LifeCreate> {
                           
                           (validator.getMap()["policyfees"]!=null && validator.getMap()["policyfees"]["show"])?
                           new IMTextField(
-                            label: 'Policy Fees'+((validator.getMap()["policyfees"]["validation_rules"]!=null)?" *":""),
+                            label: 'Policy Fees'+((validator.getMap()["policyfees"]["validation_rules"]!="")?" *":""),
                             controller:txtPolicyfees,
 
                             keyboardType: TextInputType.number,
@@ -307,7 +308,7 @@ class _LifeState extends State<LifeCreate> {
                           
                           (validator.getMap()["paid"]!=null && validator.getMap()["paid"]["show"])?
                           new IMTextField(
-                            label: 'Paid Amount'+((validator.getMap()["paid"]["validation_rules"]!=null)?" *":""),
+                            label: 'Paid Amount'+((validator.getMap()["paid"]["validation_rules"]!="")?" *":""),
                             controller:txtPaid,
 
                             keyboardType: TextInputType.number,
@@ -319,7 +320,7 @@ class _LifeState extends State<LifeCreate> {
                           
                           (validator.getMap()["due"]!=null && validator.getMap()["due"]["show"])?
                           new IMTextField(
-                            label: 'Due Amount'+((validator.getMap()["due"]["validation_rules"]!=null)?" *":""),
+                            label: 'Due Amount'+((validator.getMap()["due"]["validation_rules"]!="")?" *":""),
                             controller:txtDue,
 
                             keyboardType: TextInputType.number,

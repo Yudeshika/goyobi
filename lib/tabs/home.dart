@@ -22,6 +22,7 @@ class Home extends StatelessWidget {
           ),
         
         
+    
         SliverGrid(
           gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
             maxCrossAxisExtent: MediaQuery.of(context).size.width/2,

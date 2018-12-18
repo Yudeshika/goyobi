@@ -160,6 +160,7 @@ class TabsState extends State<Tabs>  with TickerProviderStateMixin{
     }
   }
 
+
   @override
   Widget build(BuildContext context){
     
@@ -183,6 +184,7 @@ class TabsState extends State<Tabs>  with TickerProviderStateMixin{
             new _fourthTab.Tools()
           ],
         ),
+
 
         //Tabs
         bottomNavigationBar: Theme.of(context).platform == TargetPlatform.iOS

@@ -1067,8 +1067,8 @@ class ListingState<T extends StatefulWidget> extends State<T>
                                                 CircleAvatar(
                                                   backgroundColor:
                                                       (document['type'] == 2)
-                                                          ? Colors.green
-                                                          : null,
+                                                          ? null
+                                                          :  Colors.green,
                                                   child: Text(
                                                       (document['name'] != "")
                                                           ? document['name'][0]

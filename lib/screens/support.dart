@@ -6,9 +6,19 @@ import 'package:flutter/services.dart';
 import 'dart:async';
 import 'package:intl/intl.dart';
 import 'dart:io';
+import '../screens/user/auth.dart';
 
 
 class Support extends StatefulWidget{
+
+  String uid;
+  String mid;
+
+  Support() {
+    new Auth().currentUser().then((userId) {
+      uid = userId;
+    });
+  }
 
 @override
   _SupportState createState() => new _SupportState();
@@ -22,14 +32,49 @@ final formatter = new NumberFormat("00");
 
 static const stream =
       const EventChannel('com.shynsoft.goyobi/stream');
+static const stream2 =
+      const EventChannel('com.shynsoft.goyobi/stream2');
+static const stream3 =
+      const EventChannel('com.shynsoft.goyobi/stream3');
 
   String _timer = "";
   String _CID = "";
   StreamSubscription _timerSubscription = null;
+  StreamSubscription _timerSubscription2 = null;
+  StreamSubscription _timerSubscription3 = null;
 
   void _enableTimer() {
     if (_timerSubscription == null) {
       _timerSubscription = stream.receiveBroadcastStream().listen(_updateTimer);
+    }
+  }
+
+  void _enableTimer2() {
+    if (_timerSubscription2 == null) {
+      _timerSubscription2 = stream2.receiveBroadcastStream().listen(_updateTimer2);
+      _disableTimer2();
+      Firestore.instance.runTransaction((transaction) async {
+                                await transaction.update( Firestore.instance.collection('members').document(widget.mid), {"call_supporter":"true"});
+                              });
+
+                            setState(() {
+
+                            });
+    }
+  }
+
+  void _enableTimer3() {
+    if (_timerSubscription3 == null) {
+      _timerSubscription3 = stream3.receiveBroadcastStream().listen(_updateTimer3);
+      _disableTimer3();
+
+      Firestore.instance.runTransaction((transaction) async {
+                                await transaction.update( Firestore.instance.collection('members').document(widget.mid), {"call_supporter":"false"});
+                              });
+
+                            setState(() {
+
+                            });
     }
   }
 
@@ -40,20 +85,80 @@ static const stream =
     }
   }
 
+  void _disableTimer2() {
+    if (_timerSubscription2 != null) {
+      _timerSubscription2.cancel();
+      _timerSubscription2 = null;
+    }
+  }
+
+  void _disableTimer3() {
+    if (_timerSubscription3 != null) {
+      _timerSubscription3.cancel();
+      _timerSubscription3 = null;
+    }
+  }
+
   void _updateTimer(timer) {
     debugPrint("Timer $timer");
     setState(() => _timer = timer);
   }
+
+  void _updateTimer2(timer) {
+    debugPrint("Timer $timer");
+    //setState(() => _timer = timer);
+  }
+
+  
+  void _updateTimer3(timer) {
+    debugPrint("Timer $timer");
+    //setState(() => _timer = timer);
+  }
+
+  @override
+    void initState() { 
+      super.initState();
+      _timerSubscription = stream.receiveBroadcastStream().listen(_updateTimer);
+      //_timerSubscription2 = stream2.receiveBroadcastStream().listen(_updateTimer2);
+
+    }
   @override
   Widget build (BuildContext context) { 
 
     var timerCard = new Card(
         child: new Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-      const ListTile(
+      ListTile(
         leading: const Icon(Icons.supervised_user_circle, color: Colors.deepOrange, size: 50.0,),
         title: const Text('Do you want an Analyze Report?'),
-        subtitle: const Text(
-            "Don't worry if you are not happy with this feature You can Disable and Enable any Time."),
+        subtitle: Container(
+          child: StreamBuilder(
+                  stream: Firestore.instance
+                      .collection('members')
+                      .where("uid", isEqualTo: widget.uid)
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) return new Text('Loading...');
+
+                    return Column(
+                        children: snapshot.data.documents
+                            .map((DocumentSnapshot document) {
+
+                              widget.mid = document.documentID;
+                              //setState(() { });
+
+                              if(document["call_supporter"]=="true"){
+                                return Text(
+            "Don't worry if you are not happy with this feature You can Disable and Enable any Time.");
+                              }else{
+                                return Text(
+            "You have not enabled this feature You can Enable any Time.");
+                              }
+                              
+                            }).toList());
+                  }),
+        ),
+         
       ),
       new Center(
         child: new Text(
@@ -63,19 +168,38 @@ static const stream =
       ),
       new ButtonTheme.bar(
           child: new ButtonBar(children: <Widget>[
-        new FlatButton(
-          child: const Text('Enable'),
-          onPressed: _enableTimer,
-        ),
-        new FlatButton(
+            StreamBuilder(
+                  stream: Firestore.instance
+                      .collection('members')
+                      .where("uid", isEqualTo: widget.uid)
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData) return new Text('Loading...');
+
+                    return Column(
+                        children: snapshot.data.documents
+                            .map((DocumentSnapshot document) {
+                              if(document["call_supporter"]=="true"){
+                                return new FlatButton(
           child: const Text('Disable'),
-          onPressed: _disableTimer,
-        ),
+          onPressed: _enableTimer3,
+        );
+                              }else{
+                                return new FlatButton(
+          child: const Text('Enable'),
+          onPressed: _enableTimer2,
+        );
+                              }
+                              
+                            }).take(1).toList());
+                  })
+        ,
+        
       ]))
     ]));
     
-     _timerSubscription = stream.receiveBroadcastStream().listen(_updateTimer);
-
+     
 
     return new Scaffold(
 

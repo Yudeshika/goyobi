@@ -90,8 +90,7 @@ class TabsState extends State<Tabs>  with TickerProviderStateMixin{
 
 
   Widget getAnimButton(){
-    var stackChildren = <Widget>[
-    ];
+    var stackChildren = <Widget>[];
 
     var firstAngle = _sparklesAngle;
     var sparkleRadius = (sparklesAnimationController.value * 50) ;
@@ -162,7 +161,9 @@ class TabsState extends State<Tabs>  with TickerProviderStateMixin{
   }
 
   @override
-  Widget build(BuildContext context) => new Scaffold(
+  Widget build(BuildContext context){
+    
+     return new Scaffold(
         //App Bar
         appBar: (_tab == 0)
             ? null
@@ -224,10 +225,9 @@ class TabsState extends State<Tabs>  with TickerProviderStateMixin{
                   color: new Color(0xFFECEFF1),
                 ),
                 child: new Center(
-                  child: new FlutterLogo(
-                    colors: Colors.blueGrey,
-                    size: 54.0,
-                  ),
+                  child: new Image.asset('assets/common/logo.png',
+                        height: 54.0,
+                        fit: BoxFit.fitHeight),
                 ),
               ),
             ),
@@ -274,13 +274,7 @@ class TabsState extends State<Tabs>  with TickerProviderStateMixin{
                   //Navigator.pop(context);
                   Navigator.of(context).pushNamed('/profile');
                 }),
-              new ListTile(
-                leading: new Icon(Icons.chat),
-                title: new Text('Customer'),
-                onTap: () {
-                  //Navigator.pop(context);
-                  Navigator.of(context).pushNamed('/customerview');
-                }),
+              
 
 
             new ListTile(
@@ -331,6 +325,7 @@ class TabsState extends State<Tabs>  with TickerProviderStateMixin{
         )
         ,
       );
+  }
 
   void onTap(int tab) {
     _tabController.jumpToPage(tab);

@@ -37,16 +37,7 @@ class IMHeader implements SliverPersistentHeaderDelegate {
             ),
           ),
         ),
-        Positioned(
-          left: 4.0,
-          top: 4.0,
-          child: SafeArea(
-            child: IconButton(
-              icon: Icon(Icons.menu),
-              onPressed: onLayoutToggle,
-            ),
-          ),
-        ),
+        
         Positioned(
           left: 16.0,
           right: 16.0,
@@ -54,6 +45,18 @@ class IMHeader implements SliverPersistentHeaderDelegate {
           child: Text(
             'GOYOBI',
             style: TextStyle(fontSize: 32.0, color: Colors.white),
+          ),
+        ),
+        Positioned(
+          left: 4.0,
+          top: 4.0,
+          child: SafeArea(
+            child: IconButton(
+              icon: Icon(Icons.menu),
+              onPressed: () {
+							  Scaffold.of(context).openDrawer();
+						  },
+            ),
           ),
         ),
       ],

@@ -62,7 +62,7 @@ public class IncomingCall extends BroadcastReceiver {
 
                 launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(Intent.createChooser(launchIntent, "TEXT="+incomingNumber));
-                addNotification(msg);
+                //addNotification(msg);
             }
         }
 

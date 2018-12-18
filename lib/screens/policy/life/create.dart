@@ -145,7 +145,7 @@ class _LifeState extends State<LifeCreate> {
 
                           (validator.getMap()["policyno"]!=null && validator.getMap()["policyno"]["show"])?
                           new IMTextField(
-                            label: 'Policy Number'+((validator.getMap()["policyno"]["validation_rules"]!=null)?" *":""),
+                            label: 'Policy Number'+((validator.getMap()["policyno"]["validation_rules"]!="")?" *":""),
                             controller:txtPolicyno,
 
                             validator: (text) => widget.validator

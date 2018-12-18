@@ -55,8 +55,14 @@ class _CustomerViewState extends State<CustomerView> {
         ),
 
         //Content of tabs
-        body:  new Stack(
-          children: <Widget>[
+        body:  new SingleChildScrollView(
+          child: 
+          new Container(
+             width: MediaQuery.of(context).size.width,
+             height: MediaQuery.of(context).size.height,
+          child:
+          new Stack(
+        children: <Widget>[
             ClipPath(
               child: Container(
           //       decoration: new BoxDecoration(
@@ -186,7 +192,7 @@ class _CustomerViewState extends State<CustomerView> {
                                     "SOCIAL SECURITY NO / NIC",
                                     style: TextStyle(
                                       color: Colors.blueGrey[200],
-                                      fontSize: 12.0,
+                                      fontSize: 11.0,
                                     ),
                                   ),
                                 ),
@@ -202,7 +208,7 @@ class _CustomerViewState extends State<CustomerView> {
                                         "PERSONAL EMAIL",
                                         style: TextStyle(
                                           color: Colors.blueGrey[200],
-                                          fontSize: 12.0,
+                                          fontSize: 11.0,
                                         ),
                                       ))),
                             ],
@@ -265,7 +271,7 @@ class _CustomerViewState extends State<CustomerView> {
                                     "CONTACT NO - HOME",
                                     style: TextStyle(
                                       color: Colors.blueGrey[200],
-                                      fontSize: 12.0,
+                                      fontSize: 11.0,
                                     ),
                                   ),
                                 ),
@@ -278,10 +284,10 @@ class _CustomerViewState extends State<CustomerView> {
                                       padding: EdgeInsets.all(2.0)
                                       ,
                                       child: Text(
-                                        "HOME ADDRESS / REGISTER ADDRESS",
+                                        "HOME / REGISTER ADDRESS",
                                         style: TextStyle(
                                           color: Colors.blueGrey[200],
-                                          fontSize: 12.0,
+                                          fontSize: 11.0,
                                         ),
                                       ))),
                             ],
@@ -343,7 +349,7 @@ class _CustomerViewState extends State<CustomerView> {
                                     "BIRTHDAY",
                                     style: TextStyle(
                                       color: Colors.blueGrey[200],
-                                      fontSize: 12.0,
+                                      fontSize: 11.0,
                                     ),
                                   ),
                                 ),
@@ -359,7 +365,7 @@ class _CustomerViewState extends State<CustomerView> {
                                         "GENDER",
                                         style: TextStyle(
                                           color: Colors.blueGrey[200],
-                                          fontSize: 12.0,
+                                          fontSize: 11.0,
                                         ),
                                       ))),
                             ],
@@ -422,7 +428,7 @@ class _CustomerViewState extends State<CustomerView> {
                                     "HEIGHT (cm)",
                                     style: TextStyle(
                                       color: Colors.blueGrey[200],
-                                      fontSize: 12.0,
+                                      fontSize: 11.0,
                                     ),
                                   ),
                                 ),
@@ -438,7 +444,7 @@ class _CustomerViewState extends State<CustomerView> {
                                         "WEIGHT (Kg)",
                                         style: TextStyle(
                                           color: Colors.blueGrey[200],
-                                          fontSize: 12.0,
+                                          fontSize: 11.0,
                                         ),
                                       ))),
                             ],
@@ -501,7 +507,7 @@ class _CustomerViewState extends State<CustomerView> {
                                     "MARITAL STATUS",
                                     style: TextStyle(
                                       color: Colors.blueGrey[200],
-                                      fontSize: 12.0,
+                                      fontSize: 11.0,
                                     ),
                                   ),
                                 ),
@@ -517,7 +523,7 @@ class _CustomerViewState extends State<CustomerView> {
                                         "CHILDREN",
                                         style: TextStyle(
                                           color: Colors.blueGrey[200],
-                                          fontSize: 12.0,
+                                          fontSize: 11.0,
                                         ),
                                       ))),
                             ],
@@ -580,7 +586,7 @@ class _CustomerViewState extends State<CustomerView> {
                                     "OCCUPATION",
                                     style: TextStyle(
                                       color: Colors.blueGrey[200],
-                                      fontSize: 12.0,
+                                      fontSize: 11.0,
                                     ),
                                   ),
                                 ),
@@ -596,7 +602,7 @@ class _CustomerViewState extends State<CustomerView> {
                                         "CONTACT NO - OFFICE",
                                         style: TextStyle(
                                           color: Colors.blueGrey[200],
-                                          fontSize: 12.0,
+                                          fontSize: 11.0,
                                         ),
                                       ))),
                             ],
@@ -654,10 +660,10 @@ class _CustomerViewState extends State<CustomerView> {
                                   padding: EdgeInsets.all(2.0),
                                   
                                   child: Text(
-                                    "HOME ADDRESS / REGISTER ADDRESS",
+                                    "HOME / REGISTER ADDRESS",
                                     style: TextStyle(
                                       color: Colors.blueGrey[200],
-                                      fontSize: 12.0,
+                                      fontSize: 11.0,
                                     ),
                                   ),
                                 ),
@@ -748,7 +754,8 @@ class _CustomerViewState extends State<CustomerView> {
             )
           ],
         ),
-                
+          )
+        )       
       );
 }
 

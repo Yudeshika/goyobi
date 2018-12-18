@@ -31,6 +31,7 @@ class _TodoState extends State<TodoCreate> {
   final dateFormat = DateFormat("yyyy-MM-dd h:mm a");
   
 
+  String selectedCustomer = null;
 
   String msg = (now.hour < 12) ? "Good Morning!" : "Good Afternoon";
   TextEditingController txtName = TextEditingController();
@@ -93,6 +94,42 @@ class _TodoState extends State<TodoCreate> {
                             .showSnackBar(SnackBar(content: Text('$date')));
                             },
                           ),
+                          new SizedBox(height: 10.0),
+                          new Text("Customer"),
+                          StreamBuilder(
+                                stream: Firestore.instance
+                                    .collection("customers")
+                                    .where("uid", isEqualTo: widget.uid)
+                                    .snapshots(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                                  if (!snapshot.hasData)
+                                    return new Text('Loading...');
+                                  return new DropdownButton(
+                                      elevation: 0,
+                                      value: selectedCustomer,
+                                      items: snapshot.data.documents
+                                          .map((DocumentSnapshot document) {
+                                        String name = document["name"];
+                                        // if(name.toLowerCase().contains(filter.toLowerCase())){
+                                        return DropdownMenuItem(
+                                            value: document.documentID+" - "+name,
+                                            child: Row(
+                                              children: <Widget>[
+                                                new Icon(Icons.person),
+                                                new SizedBox(width: 5.0),
+                                                new Text(name)
+                                              ],
+                                            ));
+                                        // }
+                                      }).toList(),
+                                      onChanged: (value) {
+                                        print(value);
+                                        selectedCustomer = value;
+                                        setState(() {});
+                                      });
+                                },
+                              ),
 
                           new ButtonBar(
                             children: <Widget>[
@@ -117,6 +154,8 @@ class _TodoState extends State<TodoCreate> {
                                         "do_on":dateFormat.parse(txtDate.text),
                                         "created_on": DateTime.now(),
                                         "done":false,
+                                        "customer_name":selectedCustomer.split(" - ")[1],
+                                        "customer_id":selectedCustomer.split(" - ")[0],
                                         "uid": widget.uid
 
                                         });

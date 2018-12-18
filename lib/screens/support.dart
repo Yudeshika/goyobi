@@ -155,7 +155,7 @@ static const stream3 =
             "You have not enabled this feature You can Enable any Time.");
                               }
                               
-                            }).toList());
+                            }).take(1).toList());
                   }),
         ),
          
@@ -281,7 +281,7 @@ static const stream3 =
                                       children: 
 
                                       snapshot.data.documents.map((DocumentSnapshot document) {
-                                        
+                                        print("CID = "+_CID);
                                      _CID = document.documentID;
                                   return 
                                   new 
@@ -294,7 +294,7 @@ static const stream3 =
                                       
                                       child: 
                                         new Container(
-                                          width: 350.0,
+                                          width: MediaQuery.of(context).size.width-10.0,
                                           child: new Column(
                                         
                                       children: <Widget>[
@@ -335,7 +335,7 @@ static const stream3 =
                                       
                                       child: 
                                         new Container(
-                                          width: 240.0,
+                                          width: MediaQuery.of(context).size.width-20.0,
                                           height: 140.0,
                                           child: new Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -420,7 +420,7 @@ static const stream3 =
                                       
                                       child: 
                                         new Container(
-                                          width: 240.0,
+                                          width: MediaQuery.of(context).size.width-20.0,
                                           height: 150.0,
                                           child: new Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -486,7 +486,7 @@ static const stream3 =
                                       
                                       child: 
                                         new Container(
-                                          width: 240.0,
+                                          width: MediaQuery.of(context).size.width-20.0,
                                           height: 150.0,
                                           child: new Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -554,7 +554,7 @@ static const stream3 =
                                       
                                       child: 
                                         new Container(
-                                          width: 240.0,
+                                          width: MediaQuery.of(context).size.width-20.0,
                                           height: 140.0,
                                           child: new Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -563,7 +563,7 @@ static const stream3 =
                                       children: <Widget>[
                                         new SizedBox(height: 10.0,),
                                         ListTile(
-        leading: Icon((document["done"])?Icons.check:Icons.check_box_outline_blank, size: 60.0,),
+        leading: Icon((document["done"])?Icons.check:Icons.edit, size: 60.0,),
         title: Text(document["name"]),
         subtitle: Text("Due : "+formatter
                                             .format(document['do_on'].day) +

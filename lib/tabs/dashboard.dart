@@ -1,55 +1,128 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
-  
+import 'package:cloud_firestore/cloud_firestore.dart';
+import '../screens/user/auth.dart';
 
 class Dashboard extends StatefulWidget {
+  
+  String uid;
 
- Dashboard();
-   @override
+  
+  Dashboard() {
+    new Auth().currentUser().then((userId) {
+      uid = userId;
+    });
+  }
+  @override
   _DashboardState createState() => new _DashboardState();
-
 }
+
 class _DashboardState extends State<Dashboard> {
+  final GlobalKey<AnimatedCircularChartState> _chartKey =
+      new GlobalKey<AnimatedCircularChartState>();
 
-
-final GlobalKey<AnimatedCircularChartState> _chartKey = new GlobalKey<AnimatedCircularChartState>();
-
-List<CircularStackEntry> data = <CircularStackEntry>[
-  new CircularStackEntry(
-    <CircularSegmentEntry>[
-      new CircularSegmentEntry(500.0, Colors.red[200], rankKey: 'April'),
-      new CircularSegmentEntry(1000.0, Colors.green[200], rankKey: 'May'),
-      new CircularSegmentEntry(2000.0, Colors.blue[200], rankKey: 'June'),
-      new CircularSegmentEntry(1000.0, Colors.yellow[200], rankKey: 'July'),
-      new CircularSegmentEntry(1000.0, Colors.yellow[200], rankKey: 'August'),
-    ],
-    rankKey: 'Monthly Progress',
-  ),
-];
-
+  List<CircularStackEntry> data = <CircularStackEntry>[
+    new CircularStackEntry(
+      <CircularSegmentEntry>[
+        
+      ],
+      rankKey: 'Monthly Progress',
+    ),
+  ];
+  double complete = 0.0;
+  double target = 200000.0;
+    double p1 = 0.0, p2 = 0.0, p3 = 0.0;
 
   @override
-  Widget build(BuildContext context) => new Container(
-    child: new Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: <Widget>[
-        
-        new AnimatedCircularChart(
-    key: _chartKey,
-    size: const Size(450.0, 450.0),
-    initialChartData: data,
-    chartType: CircularChartType.Radial,
-    holeRadius: 10.0,
-  holeLabel: '67%',
-  labelStyle: new TextStyle(
-    color: Colors.blueGrey[600],
-    fontWeight: FontWeight.bold,
-    fontSize: 24.0,
-  ),
-  ),
-        new Text('Current Progress')
-      ]
+  void initState() {
+    super.initState();
+    //CircularStackEntry stack = data.elementAt(0);
+    
+    Firestore.instance
+        .collection('policies')
+        .where("uid", isEqualTo: widget.uid)
+        .snapshots()
+        .listen((mydata) {
+          print("DATA HAS");
+          mydata.documents.forEach((doc) { 
+            print("PRE="+doc["premium"]);
+            if(doc["type"]==1){
+              p1+=(doc["premium"]=="")? 0:double.parse(doc["premium"]);
+            }else if(doc["type"]==2){
+              p2+=(doc["premium"]=="")? 0:double.parse(doc["premium"]);
+            }else if(doc["type"]==3){
+              p3+=(doc["premium"]=="")? 0:double.parse(doc["premium"]);
+            }
+          });
+          print("P1="+p1.toString());
+          List<CircularStackEntry> nextData = <CircularStackEntry>[
+    new CircularStackEntry(
+      <CircularSegmentEntry>[
+        new CircularSegmentEntry(p1, Colors.red[200], rankKey: 'Life'),
+        new CircularSegmentEntry(p2, Colors.green[200], rankKey: 'Motor'),
+        new CircularSegmentEntry(p3, Colors.blue[200], rankKey: 'Fire'),
+        new CircularSegmentEntry(target-(p1+p2+p3), Colors.grey[200], rankKey: 'Left'),
+      ],
+      rankKey: 'Quarterly Profits',
     ),
-  );
+  ];
+          // stack.entries.add(new CircularSegmentEntry(p1, Colors.red[200], rankKey: 'Life'));
+          // stack.entries.add(new CircularSegmentEntry(p2, Colors.green[200], rankKey: 'Motor'));
+          // stack.entries.add(new CircularSegmentEntry(p3, Colors.blue[200], rankKey: 'Fire'));
+          // stack.entries.add(new CircularSegmentEntry(target-(p1+p2+p3), Colors.grey[200], rankKey: 'Left'));
+          complete = ((p1+p2+p3) / target) * 100;
+          setState(() {
+                  _chartKey.currentState.updateData(nextData);
+                });
+           //data.removeAt(0);
+                       //data.add(stack);
+  //                     data = <CircularStackEntry>[
+  //   new CircularStackEntry(
+  //     stack.entries,
+  //     rankKey: 'Monthly Progress',
+  //   ),
+  // ];
+        });
+        
+        print("%%=="+complete.toString());
+        
+
+        
+  }
+
+  @override
+  Widget build(BuildContext context) { 
+    print("RB   OBj=="+data.elementAt(0).entries.toString());
+    print("% =="+complete.toString());
+    return new Container(
+        child: new Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: <Widget>[
+              new AnimatedCircularChart(
+                key: _chartKey,
+                size: const Size(450.0, 450.0),
+                initialChartData: data,
+                
+                chartType: CircularChartType.Radial,
+                holeRadius: 10.0,
+                holeLabel: complete.toStringAsFixed(2)+'%',
+                labelStyle: new TextStyle(
+                  color: Colors.blueGrey[600],
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24.0,
+                ),
+              ),
+              new Column(
+                children: <Widget>[
+                  Text('Current Progress', style: new TextStyle(fontSize: 20.0),),
+                  Text('Target : '+ target.toStringAsFixed(2) ),
+                  Text('Life : '+ p1.toStringAsFixed(2) ),
+                  Text('Motor : '+ p2.toStringAsFixed(2) ),
+                  new SizedBox(height: 30.0,)
+                ],
+              )
+            ]),
+      );
+  }
 }

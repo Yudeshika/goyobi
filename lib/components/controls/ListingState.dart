@@ -188,7 +188,7 @@ class ListingState<T extends StatefulWidget> extends State<T>
                               text: "ALL",
                             ),
                             Tab(
-                              icon: Icon(Icons.filter_vintage),
+                              icon: Icon(Icons.calendar_today),
                               text: "UPCOMMING",
                             ),
                             Tab(
@@ -431,7 +431,18 @@ class ListingState<T extends StatefulWidget> extends State<T>
                       //bool done = document["done"];
                       //map[document.documentID] = document["done"];
                       String name = document[this.columns[0]].toString();
-                      if (name.toLowerCase().contains(filter.toLowerCase())) {
+                      String search = name;
+                      if(table == "policies"){
+                        if (document['type'] == 1) {
+                          search+= document['policyno'];
+                          search+= document['proposalno'];
+                        }else if (document['type'] == 2) {
+                          search+= document['vehicleno'];
+                        }else{
+                          search+= document['policyno'];
+                        }
+                      }
+                      if (search.toLowerCase().contains(filter.toLowerCase())) {
                         return Dismissible(
                             key: new Key(document.documentID),
                             background: new Container(

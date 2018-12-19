@@ -178,7 +178,7 @@ class TabsState extends State<Tabs>  with TickerProviderStateMixin{
           controller: _tabController,
           onPageChanged: onTabChanged,
           children: <Widget>[
-            new _firstTab.Home(),
+            new _firstTab.Home(_tabController),
             new _secondTab.Dashboard(),
             new _thirdTab.Reminders(),
             new _fourthTab.Tools()

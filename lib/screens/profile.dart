@@ -28,7 +28,12 @@ class _ProfileState extends State<Profile> {
         ),
 
         //Content of tabs
-        body: new Stack(
+        body:new SingleChildScrollView(
+          child: 
+          new Container(
+             width: MediaQuery.of(context).size.width,
+             height: MediaQuery.of(context).size.height,
+          child:new Stack(
           children: <Widget>[
             ClipPath(
               child: Container(
@@ -100,26 +105,25 @@ class _ProfileState extends State<Profile> {
                                 " " +
                                 document["last_name"],
                             style: TextStyle(
-                              fontSize: 30.0,
                               fontWeight: FontWeight.bold,
                             ),
+                            textScaleFactor:2.0
                           ),
                           SizedBox(height: 15.0),
                           Text(
                             document["email"],
                             style: TextStyle(
-                              fontSize: 17.0,
                               fontStyle: FontStyle.italic,
                             ),
+                            textScaleFactor:1.0
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: <Widget>[
                               Expanded(
                                 child: Container(
-                                  height: 40.0,
                                   margin:
-                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                      EdgeInsets.only(top: 15.0, left: 15.0),
                                   padding: EdgeInsets.all(8.0),
                                   decoration: BoxDecoration(
                                       color: Colors.white,
@@ -133,16 +137,15 @@ class _ProfileState extends State<Profile> {
                                     document["nic"],
                                     style: TextStyle(
                                       color: Colors.grey,
-                                      fontSize: 17.0,
                                     ),
+                                    textScaleFactor:1.1
                                   ),
                                 ),
                               ),
-                              Flexible(
-                                  child: Container(
-                                      height: 40.0,
+                              Expanded(
+                                  child: Container( 
                                       margin: EdgeInsets.only(
-                                          top: 15.0, left: 10.0),
+                                          top: 15.0, left: 15.0, right: 15.0),
                                       padding: EdgeInsets.all(8.0),
                                       decoration: BoxDecoration(
                                           color: Colors.white,
@@ -156,11 +159,11 @@ class _ProfileState extends State<Profile> {
                                                 color: Colors.grey)
                                           ]),
                                       child: Text(
-                                        widget.companyName,
+                                        (widget.companyName.length>18)?widget.companyName.substring(0,17)+"..":widget.companyName,
                                         style: TextStyle(
                                           color: Colors.grey,
-                                          fontSize: 17.0,
                                         ),
+                                        textScaleFactor: 1.1,
                                       ))),
                             ],
                           ),
@@ -168,7 +171,6 @@ class _ProfileState extends State<Profile> {
                             children: <Widget>[
                               Expanded(
                                 child: Container(
-                                  height: 40.0,
                                   margin:
                                       EdgeInsets.only(top: 15.0, left: 15.0),
                                   padding: EdgeInsets.all(8.0),
@@ -184,14 +186,13 @@ class _ProfileState extends State<Profile> {
                                     document["mobile_no"],
                                     style: TextStyle(
                                       color: Colors.grey,
-                                      fontSize: 17.0,
                                     ),
+                                    textScaleFactor: 1.1,
                                   ),
                                 ),
                               ),
                               Expanded(
                                   child: Container(
-                                height: 40.0,
                                 margin: EdgeInsets.only(
                                     top: 15.0, left: 15.0, right: 15.0),
                                 padding: EdgeInsets.all(8.0),
@@ -207,8 +208,8 @@ class _ProfileState extends State<Profile> {
                                   document["home_tp"],
                                   style: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 17.0,
                                   ),
+                                  textScaleFactor: 1.1,
                                 ),
                               )),
                             ],
@@ -232,8 +233,8 @@ class _ProfileState extends State<Profile> {
                                     widget.countryName,
                                     style: TextStyle(
                                       color: Colors.grey,
-                                      fontSize: 17.0,
                                     ),
+                                    textScaleFactor: 1.1,
                                   ),
                                 ),
                               ),
@@ -254,8 +255,8 @@ class _ProfileState extends State<Profile> {
                                   'LKR',
                                   style: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 17.0,
                                   ),
+                                  textScaleFactor: 1.1,
                                 ),
                               )),
                             ],
@@ -279,8 +280,8 @@ class _ProfileState extends State<Profile> {
                                     'Office - '+document["office_tp"],
                                     style: TextStyle(
                                       color: Colors.grey,
-                                      fontSize: 17.0,
                                     ),
+                                    textScaleFactor: 1.1,
                                   ),
                                 ),
                               ),
@@ -301,13 +302,13 @@ class _ProfileState extends State<Profile> {
                                   document["mobile_no"],
                                   style: TextStyle(
                                     color: Colors.grey,
-                                    fontSize: 17.0,
                                   ),
+                                  textScaleFactor: 1.1,
                                 ),
                               )),
                             ],
                           ),
-                          SizedBox(height: 25.0),
+                          SizedBox(height: 20.0),
                           Container(
                             height: 35.0,
                             width: 105.0,
@@ -322,7 +323,8 @@ class _ProfileState extends State<Profile> {
                                   child: Text(
                                     'Edit Profile',
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 20.0),
+                                        color: Colors.white),
+                                        textScaleFactor: 1.2,
                                   ),
                                 ),
                               ),
@@ -335,6 +337,8 @@ class _ProfileState extends State<Profile> {
             )
           ],
         ),
+          ),
+        )
       );
 }
 

@@ -3,7 +3,12 @@ import '../components/IM.dart';
 
 class Home extends StatelessWidget {
  
+ 
+  PageController _tabController;
 
+  Home(PageController _tabController ){
+    this._tabController = _tabController;
+  }
 
   final VoidCallback onLayoutToggle = null;
   @override
@@ -42,7 +47,12 @@ class Home extends StatelessWidget {
                       icon: allMenus[index].icon,
                       context: context,
                       onPressed: () {
-                        Navigator.of(context).pushNamed(allMenus[index].url);
+                        if(allMenus[index].url == "tab:tool"){
+                          _tabController.jumpToPage(3);
+                        }else{
+                          Navigator.of(context).pushNamed(allMenus[index].url);
+                        }
+                        
                       },
                       type: ButtonTypes.action,
                       
@@ -61,11 +71,11 @@ class Home extends StatelessWidget {
 List<Menu> allMenus = [
   Menu(name: 'CUSTOMER', url: '/customers', icon: new Icon(Icons.people)),
   Menu(name: 'POLICY', url: '/policies', icon: new Icon(Icons.assignment)),
-  Menu(name: 'APPOINTMENT', url: '/appointments', icon: new Icon(Icons.timer)),
-  Menu(name: 'REMINDER', url: '/reminders', icon: new Icon(Icons.alarm)),
   Menu(name: 'PAYMENT', url: '/payments', icon: new Icon(Icons.payment)),
   Menu(name: 'CLAIMS', url: '/claims', icon: new Icon(Icons.local_play)),
+  Menu(name: 'APPOINTMENT', url: '/appointments', icon: new Icon(Icons.timer)),
   Menu(name: 'TO DO', url: '/todos', icon: new Icon(Icons.edit)),
+  Menu(name: 'TOOLS', url: 'tab:tool', icon: new Icon(Icons.favorite)),
   Menu(name: 'SETTINGS', url: '/settings', icon: new Icon(Icons.settings)),
 ];
 

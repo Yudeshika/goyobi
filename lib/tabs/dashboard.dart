@@ -6,12 +6,11 @@ import '../screens/user/auth.dart';
 class Dashboard extends StatefulWidget {
   
   String uid;
-
   
   Dashboard() {
     new Auth().currentUser().then((userId) {
       uid = userId;
-    });
+    }); 
   }
   @override
   _DashboardState createState() => new _DashboardState();
@@ -84,16 +83,16 @@ class _DashboardState extends State<Dashboard> {
             children: <Widget>[
               new AnimatedCircularChart(
                 key: _chartKey,
-                size: const Size(400.0, 400.0),
+                size: Size(MediaQuery.of(context).size.width, MediaQuery.of(context).size.width),
                 initialChartData: data,
                 
                 chartType: CircularChartType.Radial,
-                holeRadius: 10.0,
+                holeRadius: 20.0,
                 holeLabel: complete.toStringAsFixed(2)+'%',
                 labelStyle: new TextStyle(
                   color: Colors.blueGrey[600],
                   fontWeight: FontWeight.bold,
-                  fontSize: 24.0,
+                  fontSize: 22.0,
                 ),
               ),
               new Column(

@@ -95,7 +95,7 @@ class _PolicyLifeViewState extends State<PolicyLifeView> {
                           Text(
                             widget.document["name"] ,
                             style: TextStyle(
-                              fontSize: 30.0,
+                              fontSize: 20.0,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -603,7 +603,7 @@ class _PolicyLifeViewState extends State<PolicyLifeView> {
         ),
                 
               new SingleChildScrollView(
-                child:Text("test")
+                child:Text("No Data Found")
               )
               
             ],

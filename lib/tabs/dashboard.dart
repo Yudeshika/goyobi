@@ -43,9 +43,7 @@ class _DashboardState extends State<Dashboard> {
         .where("uid", isEqualTo: widget.uid)
         .snapshots()
         .listen((mydata) {
-          print("DATA HAS");
           mydata.documents.forEach((doc) { 
-            print("PRE="+doc["premium"]);
             if(doc["type"]==1){
               p1+=(doc["premium"]=="")? 0:double.parse(doc["premium"]);
             }else if(doc["type"]==2){
@@ -54,7 +52,6 @@ class _DashboardState extends State<Dashboard> {
               p3+=(doc["premium"]=="")? 0:double.parse(doc["premium"]);
             }
           });
-          print("P1="+p1.toString());
           List<CircularStackEntry> nextData = <CircularStackEntry>[
     new CircularStackEntry(
       <CircularSegmentEntry>[
@@ -66,34 +63,20 @@ class _DashboardState extends State<Dashboard> {
       rankKey: 'Quarterly Profits',
     ),
   ];
-          // stack.entries.add(new CircularSegmentEntry(p1, Colors.red[200], rankKey: 'Life'));
-          // stack.entries.add(new CircularSegmentEntry(p2, Colors.green[200], rankKey: 'Motor'));
-          // stack.entries.add(new CircularSegmentEntry(p3, Colors.blue[200], rankKey: 'Fire'));
-          // stack.entries.add(new CircularSegmentEntry(target-(p1+p2+p3), Colors.grey[200], rankKey: 'Left'));
           complete = ((p1+p2+p3) / target) * 100;
           setState(() {
                   _chartKey.currentState.updateData(nextData);
                 });
-           //data.removeAt(0);
-                       //data.add(stack);
-  //                     data = <CircularStackEntry>[
-  //   new CircularStackEntry(
-  //     stack.entries,
-  //     rankKey: 'Monthly Progress',
-  //   ),
-  // ];
+           
         });
         
-        print("%%=="+complete.toString());
         
 
         
   }
 
   @override
-  Widget build(BuildContext context) { 
-    print("RB   OBj=="+data.elementAt(0).entries.toString());
-    print("% =="+complete.toString());
+  Widget build(BuildContext context) {  
     return new Container(
         child: new Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -101,7 +84,7 @@ class _DashboardState extends State<Dashboard> {
             children: <Widget>[
               new AnimatedCircularChart(
                 key: _chartKey,
-                size: const Size(450.0, 450.0),
+                size: const Size(400.0, 400.0),
                 initialChartData: data,
                 
                 chartType: CircularChartType.Radial,

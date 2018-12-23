@@ -19,17 +19,17 @@ class TitleCreate extends StatefulWidget {
   }
 
   @override
-  _TitlesState createState() => new _TitlesState(validator);
+  _TitleState createState() => new _TitleState(validator);
 
 }
 
 
-class _TitlesState extends State<TitleCreate> {
+class _TitleState extends State<TitleCreate> {
   final _formKey = GlobalKey<FormState>();
 
   Validator validator;
 
-  _TitlesState(Validator validator){
+  _TitleState(Validator validator){
     this.validator = validator;
     this.validator.loadMap(mapUpdated);
   }
@@ -39,6 +39,8 @@ class _TitlesState extends State<TitleCreate> {
     });
   }
   
+  String selectedCustomer = null;
+
   static DateTime now = DateTime.now();
 
   int _radioPeriod = 0;
@@ -49,7 +51,7 @@ class _TitlesState extends State<TitleCreate> {
 
   String msg = (now.hour < 12) ? "Good Morning!" : "Good Afternoon";
   TextEditingController txtName = TextEditingController();
-  TextEditingController txtId = TextEditingController();
+  // TextEditingController txtId = TextEditingController();
   TextEditingController txtInstitution = TextEditingController();
   TextEditingController txtInstitutionaddress = TextEditingController();
   TextEditingController txtLoanno = TextEditingController();
@@ -109,29 +111,46 @@ class _TitlesState extends State<TitleCreate> {
                         
                         children: <Widget>[
 
-                          (validator.getMap()["name"]!=null && validator.getMap()["name"]["show"])?
-                          new IMTextField(
-                            label: 'Customer Name'+((validator.getMap()["name"]["validation_rules"]!=null)?" *":""),
-                            controller:txtName,
+                          new Text("Select Customer"),
+                          StreamBuilder(
+                                stream: Firestore.instance
+                                    .collection("customers")
+                                    .where("uid", isEqualTo: widget.uid)
+                                    .snapshots(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                                  if (!snapshot.hasData)
+                                    return new Text('Loading...');
+                                  return new DropdownButton(
+                                      elevation: 0,
+                                      value: selectedCustomer,
+                                      items: snapshot.data.documents
+                                          .map((DocumentSnapshot document) {
+                                        String name = document["name"];
+                                        // if(name.toLowerCase().contains(filter.toLowerCase())){
+                                        return DropdownMenuItem(
+                                            value: document.documentID+" - "+name,
+                                            child: Row(
+                                              children: <Widget>[
+                                                new Icon(Icons.person),
+                                                new SizedBox(width: 5.0),
+                                                new Text(name)
+                                              ],
+                                            ));
+                                        // }
+                                      }).toList(),
+                                      onChanged: (value) {
+                                        print(value);
+                                        selectedCustomer = value;
+                                        setState(() {});
+                                      });
+                                },
+                              ),
 
-                            validator: (text) => widget.validator
-                                    .validate(text, "name", widget),
-
-                          ):new SizedBox(),
-
-                          (validator.getMap()["id"]!=null && validator.getMap()["id"]["show"])?
-                          new IMTextField(
-                            label: 'Customer ID'+((validator.getMap()["id"]["validation_rules"]!=null)?" *":""),
-                            controller:txtId,
-
-                            validator: (text) => widget.validator
-                                    .validate(text, "id", widget),
-                            
-                          ):new SizedBox(),
 
                           (validator.getMap()["institution"]!=null && validator.getMap()["institution"]["show"])?
                           new IMTextField(
-                            label: 'Name of the Lending Institution'+((validator.getMap()["institution"]["validation_rules"]!=null)?" *":""),
+                            label: 'Name of the Lending Institution'+((validator.getMap()["institution"]["validation_rules"]!="")?" *":""),
                             controller:txtInstitution,
 
                             validator: (text) => widget.validator
@@ -141,7 +160,7 @@ class _TitlesState extends State<TitleCreate> {
 
                           (validator.getMap()["institutionaddress"]!=null && validator.getMap()["institutionaddress"]["show"])?
                           new IMTextField(
-                            label: 'Address of the Lending Institution'+((validator.getMap()["institutionaddress"]["validation_rules"]!=null)?" *":""),
+                            label: 'Address of the Lending Institution'+((validator.getMap()["institutionaddress"]["validation_rules"]!="")?" *":""),
                             controller:txtInstitutionaddress,
 
                             validator: (text) => widget.validator
@@ -152,7 +171,7 @@ class _TitlesState extends State<TitleCreate> {
 
                           (validator.getMap()["loanno"]!=null && validator.getMap()["loanno"]["show"])?
                           new IMTextField(
-                            label: 'Loan Number'+((validator.getMap()["loanno"]["validation_rules"]!=null)?" *":""),
+                            label: 'Loan Number'+((validator.getMap()["loanno"]["validation_rules"]!="")?" *":""),
                             controller:txtLoanno,
 
                             validator: (text) => widget.validator
@@ -162,7 +181,7 @@ class _TitlesState extends State<TitleCreate> {
 
                           (validator.getMap()["loanvalue"]!=null && validator.getMap()["loanvalue"]["show"])?
                           new IMTextField(
-                            label: 'Loan Value - Sum Insured'+((validator.getMap()["loanvalue"]["validation_rules"]!=null)?" *":""),
+                            label: 'Loan Value - Sum Insured'+((validator.getMap()["loanvalue"]["validation_rules"]!="")?" *":""),
                             controller:txtLoanvalue,
 
                             keyboardType: TextInputType.number,
@@ -174,7 +193,7 @@ class _TitlesState extends State<TitleCreate> {
 
                           (validator.getMap()["epfno"]!=null && validator.getMap()["epfno"]["show"])?
                           new IMTextField(
-                            label: 'EPF No'+((validator.getMap()["epfno"]["validation_rules"]!=null)?" *":""),
+                            label: 'EPF No'+((validator.getMap()["epfno"]["validation_rules"]!="")?" *":""),
                             controller:txtEpfno,
 
                             validator: (text) => widget.validator
@@ -184,7 +203,7 @@ class _TitlesState extends State<TitleCreate> {
 
                           (validator.getMap()["proposalno"]!=null && validator.getMap()["proposalno"]["show"])?
                           new IMTextField(
-                            label: 'Proposal No'+((validator.getMap()["proposalno"]["validation_rules"]!=null)?" *":""),
+                            label: 'Proposal No'+((validator.getMap()["proposalno"]["validation_rules"]!="")?" *":""),
                             controller:txtProposalno,
 
                             validator: (text) => widget.validator
@@ -194,7 +213,7 @@ class _TitlesState extends State<TitleCreate> {
 
                           (validator.getMap()["policyno"]!=null && validator.getMap()["policyno"]["show"])?
                           new IMTextField(
-                            label: 'Policy No'+((validator.getMap()["policyno"]["validation_rules"]!=null)?" *":""),
+                            label: 'Policy No'+((validator.getMap()["policyno"]["validation_rules"]!="")?" *":""),
                             controller:txtPolicyno,
 
                             validator: (text) => widget.validator
@@ -204,7 +223,7 @@ class _TitlesState extends State<TitleCreate> {
 
                           (validator.getMap()["premium"]!=null && validator.getMap()["premium"]["show"])?
                           new IMTextField(
-                            label: 'Premium'+((validator.getMap()["premium"]["validation_rules"]!=null)?" *":""),
+                            label: 'Premium'+((validator.getMap()["premium"]["validation_rules"]!="")?" *":""),
                             controller:txtPremium,
 
                             keyboardType: TextInputType.number,
@@ -315,7 +334,7 @@ class _TitlesState extends State<TitleCreate> {
 
                           (validator.getMap()["landname"]!=null && validator.getMap()["landname"]["show"])?
                           new IMTextField(
-                            label: 'Name of the Land'+((validator.getMap()["landname"]["validation_rules"]!=null)?" *":""),
+                            label: 'Name of the Land'+((validator.getMap()["landname"]["validation_rules"]!="")?" *":""),
                             controller:txtLandname,
 
                             validator: (text) => widget.validator
@@ -325,7 +344,7 @@ class _TitlesState extends State<TitleCreate> {
 
                            (validator.getMap()["location"]!=null && validator.getMap()["location"]["show"])?
                           new IMTextField(
-                            label: 'Location'+((validator.getMap()["location"]["validation_rules"]!=null)?" *":""),
+                            label: 'Location'+((validator.getMap()["location"]["validation_rules"]!="")?" *":""),
                             controller:txtLocation,
 
                             validator: (text) => widget.validator
@@ -335,7 +354,7 @@ class _TitlesState extends State<TitleCreate> {
 
                           (validator.getMap()["extent"]!=null && validator.getMap()["extent"]["show"])?
                           new IMTextField(
-                            label: 'Extent'+((validator.getMap()["extent"]["validation_rules"]!=null)?" *":""),
+                            label: 'Extent'+((validator.getMap()["extent"]["validation_rules"]!="")?" *":""),
                             controller:txtExtent,
 
                             validator: (text) => widget.validator
@@ -345,7 +364,7 @@ class _TitlesState extends State<TitleCreate> {
 
                           (validator.getMap()["lotno"]!=null && validator.getMap()["lotno"]["show"])?
                           new IMTextField(
-                            label: 'Lot No'+((validator.getMap()["lotno"]["validation_rules"]!=null)?" *":""),
+                            label: 'Lot No'+((validator.getMap()["lotno"]["validation_rules"]!="")?" *":""),
                             controller:txtLotno,
 
                             validator: (text) => widget.validator
@@ -355,7 +374,7 @@ class _TitlesState extends State<TitleCreate> {
 
                           (validator.getMap()["planno"]!=null && validator.getMap()["planno"]["show"])?
                           new IMTextField(
-                            label: 'Plan No'+((validator.getMap()["planno"]["validation_rules"]!=null)?" *":""),
+                            label: 'Plan No'+((validator.getMap()["planno"]["validation_rules"]!="")?" *":""),
                             controller:txtPlanno,
 
                             validator: (text) => widget.validator
@@ -407,12 +426,15 @@ class _TitlesState extends State<TitleCreate> {
                                 title: "SAVE",
                                 context: context,
                                 onPressed: () {
+
+                                  print("M==========="+widget.validator.toString());
+
                                   if (_formKey.currentState.validate() && widget.validator.validateRadio(_radioPeriod, "period", context)){
                                     Firestore.instance.runTransaction((Transaction transaction) async{
-                                      CollectionReference reference = Firestore.instance.collection('customers');
+                                      CollectionReference reference = Firestore.instance.collection('policies');
                                       await reference.add({
-                                        "name":txtName.text,
-                                        "id":txtId.text,
+                                        "name":selectedCustomer.split(" - ")[1],
+                                        "id":selectedCustomer.split(" - ")[0],
                                         "type":5,
                                         "institution":txtInstitution.text,
                                         "institutionaddress":txtInstitutionaddress,
@@ -430,7 +452,8 @@ class _TitlesState extends State<TitleCreate> {
                                         "extent":txtExtent.text,
                                         "lotno":txtLotno.text,
                                         "planno":txtPlanno.text,
-                                        "date":txtDate.text
+                                        "date":txtDate.text,
+                                        "uid":widget.uid
                                         });
                                       
                                     });

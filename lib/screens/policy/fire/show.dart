@@ -99,14 +99,7 @@ class _PolicyFireViewState extends State<PolicyFireView> {
                               fontWeight: FontWeight.bold,
                             ),
                           ),
-                          SizedBox(height: 15.0),
-                          Text(
-                            widget.document["policyname"],
-                            style: TextStyle(
-                              fontSize: 17.0,
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
+                          
                           
                           SizedBox(height: 5.0),
                           Row(
@@ -217,7 +210,7 @@ class _PolicyFireViewState extends State<PolicyFireView> {
                                       padding: EdgeInsets.all(2.0)
                                       ,
                                       child: Text(
-                                        "COMMENCED DATE",
+                                        "START DATE",
                                         style: TextStyle(
                                           color: Colors.blueGrey[200],
                                           fontSize: 11.0,
@@ -240,7 +233,7 @@ class _PolicyFireViewState extends State<PolicyFireView> {
                                       borderRadius: BorderRadius.circular(5.0),
                                       ),
                                   child: Text(
-                                    widget.document["sum"],
+                                    widget.document["sum"].toString(),
                                     style: TextStyle(
                                       color: Colors.grey[700],
                                       fontSize: 17.0,
@@ -260,7 +253,7 @@ class _PolicyFireViewState extends State<PolicyFireView> {
                                       borderRadius: BorderRadius.circular(5.0),
                                           ),
                                       child: Text(
-                                        widget.document["commenceddate"],
+                                        widget.document["start"],
                                         style: TextStyle(
                                           color: Colors.grey[700],
                                           fontSize: 17.0,
@@ -282,7 +275,7 @@ class _PolicyFireViewState extends State<PolicyFireView> {
                                   padding: EdgeInsets.all(2.0),
                                   
                                   child: Text(
-                                    "PERIOD OF POLICY - YEARS",
+                                    "PERIOD OF POLICY",
                                     style: TextStyle(
                                       color: Colors.blueGrey[200],
                                       fontSize: 11.0,
@@ -298,7 +291,7 @@ class _PolicyFireViewState extends State<PolicyFireView> {
                                       padding: EdgeInsets.all(2.0)
                                       ,
                                       child: Text(
-                                        "END DATE",
+                                        "RENEWAL DATE",
                                         style: TextStyle(
                                           color: Colors.blueGrey[200],
                                           fontSize: 11.0,
@@ -321,7 +314,7 @@ class _PolicyFireViewState extends State<PolicyFireView> {
                                       borderRadius: BorderRadius.circular(5.0),
                                       ),
                                   child: Text(
-                                    widget.document["policyperiod"],
+                                    widget.document["period"].toString(),
                                     style: TextStyle(
                                       color: Colors.grey[700],
                                       fontSize: 17.0,
@@ -341,7 +334,7 @@ class _PolicyFireViewState extends State<PolicyFireView> {
                                       borderRadius: BorderRadius.circular(5.0),
                                           ),
                                       child: Text(
-                                        widget.document["enddate"],
+                                        widget.document["renewal"],
                                         style: TextStyle(
                                           color: Colors.grey[700],
                                           fontSize: 17.0,
@@ -379,7 +372,7 @@ class _PolicyFireViewState extends State<PolicyFireView> {
                                       padding: EdgeInsets.all(2.0)
                                       ,
                                       child: Text(
-                                        "POLICY FEES - LKR",
+                                        "PAID AMOUNT",
                                         style: TextStyle(
                                           color: Colors.blueGrey[200],
                                           fontSize: 11.0,
@@ -402,7 +395,7 @@ class _PolicyFireViewState extends State<PolicyFireView> {
                                       borderRadius: BorderRadius.circular(5.0),
                                       ),
                                   child: Text(
-                                    widget.document["premium"],
+                                    widget.document["premium"].toString(),
                                     style: TextStyle(
                                       color: Colors.grey[700],
                                       fontSize: 17.0,
@@ -422,7 +415,7 @@ class _PolicyFireViewState extends State<PolicyFireView> {
                                       borderRadius: BorderRadius.circular(5.0),
                                           ),
                                       child: Text(
-                                        widget.document["policyfees"],
+                                        widget.document["paid"].toString(),
                                         style: TextStyle(
                                           color: Colors.grey[700],
                                           fontSize: 17.0,
@@ -444,7 +437,7 @@ class _PolicyFireViewState extends State<PolicyFireView> {
                                   padding: EdgeInsets.all(2.0),
                                   
                                   child: Text(
-                                    "PAID AMOUNT",
+                                    "DUE AMOUNT",
                                     style: TextStyle(
                                       color: Colors.blueGrey[200],
                                       fontSize: 11.0,
@@ -460,7 +453,7 @@ class _PolicyFireViewState extends State<PolicyFireView> {
                                       padding: EdgeInsets.all(2.0)
                                       ,
                                       child: Text(
-                                        "DUE AMOUNT",
+                                        "DUE DATE",
                                         style: TextStyle(
                                           color: Colors.blueGrey[200],
                                           fontSize: 11.0,
@@ -483,88 +476,7 @@ class _PolicyFireViewState extends State<PolicyFireView> {
                                       borderRadius: BorderRadius.circular(5.0),
                                       ),
                                   child: Text(
-                                    widget.document["paid"],
-                                    style: TextStyle(
-                                      color: Colors.grey[700],
-                                      fontSize: 17.0,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                  child: Container(
-                                      height: 40.0,
-                                      margin: EdgeInsets.only(
-                                          top: 15.0, left: 10.0),
-                                      padding: EdgeInsets.all(8.0),
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                         border: Border.all(color: Colors.grey[200]),
-                                      borderRadius: BorderRadius.circular(5.0),
-                                          ),
-                                      child: Text(
-                                        widget.document["due"],
-                                        style: TextStyle(
-                                          color: Colors.grey[700],
-                                          fontSize: 17.0,
-                                        ),
-                                      ))),
-                            ],
-                          ),
-
-                            
-                          SizedBox(height: 5.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Expanded(
-                                child: Container(
-                                  height: 5.0,
-                                  margin:
-                                      EdgeInsets.only(top: 15.0, left: 10.0),
-                                  padding: EdgeInsets.all(2.0),
-                                  
-                                  child: Text(
-                                    "PAYMENT MODE",
-                                    style: TextStyle(
-                                      color: Colors.blueGrey[200],
-                                      fontSize: 11.0,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Expanded(
-                                  child: Container(
-                                      height: 5.0,
-                                      margin: EdgeInsets.only(
-                                          top: 10.0, left: 10.0),
-                                      padding: EdgeInsets.all(2.0)
-                                      ,
-                                      child: Text(
-                                        "NEXT PAYMENT DATE",
-                                        style: TextStyle(
-                                          color: Colors.blueGrey[200],
-                                          fontSize: 11.0,
-                                        ),
-                                      ))),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: <Widget>[
-                              Expanded(
-                                child: Container(
-                                  height: 40.0,
-                                  margin:
-                                      EdgeInsets.only(top: 15.0, left: 10.0),
-                                  padding: EdgeInsets.all(8.0),
-                                  decoration: BoxDecoration(
-                                      // color: Colors.white,
-                                      border: Border.all(color: Colors.grey[200]),
-                                      borderRadius: BorderRadius.circular(5.0),
-                                      ),
-                                  child: Text(
-                                    (widget.document["paymentmode"]==1)?"Monthly":"Annualy",
+                                    widget.document["due"].toString(),
                                     style: TextStyle(
                                       color: Colors.grey[700],
                                       fontSize: 17.0,
@@ -593,6 +505,247 @@ class _PolicyFireViewState extends State<PolicyFireView> {
                             ],
                           ),
 
+                            
+                          SizedBox(height: 5.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 5.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(2.0),
+                                  
+                                  child: Text(
+                                    "POLICY LOCATION ADDRESS",
+                                    style: TextStyle(
+                                      color: Colors.blueGrey[200],
+                                      fontSize: 11.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 5.0,
+                                      margin: EdgeInsets.only(
+                                          top: 10.0, left: 10.0),
+                                      padding: EdgeInsets.all(2.0)
+                                      ,
+                                      child: Text(
+                                        "ITEM NAME",
+                                        style: TextStyle(
+                                          color: Colors.blueGrey[200],
+                                          fontSize: 11.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 40.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                      // color: Colors.white,
+                                      border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
+                                  child: Text(
+                                    widget.document["location"],
+                                    style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontSize: 17.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 40.0,
+                                      margin: EdgeInsets.only(
+                                          top: 15.0, left: 10.0),
+                                      padding: EdgeInsets.all(8.0),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                         border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                          ),
+                                      child: Text(
+                                        widget.document["itemname"],
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 17.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+                           
+                          SizedBox(height: 5.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 5.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(2.0),
+                                  
+                                  child: Text(
+                                    "SERIAL NO",
+                                    style: TextStyle(
+                                      color: Colors.blueGrey[200],
+                                      fontSize: 11.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 5.0,
+                                      margin: EdgeInsets.only(
+                                          top: 10.0, left: 10.0),
+                                      padding: EdgeInsets.all(2.0)
+                                      ,
+                                      child: Text(
+                                        "MODEL",
+                                        style: TextStyle(
+                                          color: Colors.blueGrey[200],
+                                          fontSize: 11.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 40.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                      // color: Colors.white,
+                                      border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
+                                  child: Text(
+                                    widget.document["serialno"],
+                                    style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontSize: 17.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 40.0,
+                                      margin: EdgeInsets.only(
+                                          top: 15.0, left: 10.0),
+                                      padding: EdgeInsets.all(8.0),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                         border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                          ),
+                                      child: Text(
+                                        widget.document["model"],
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 17.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+
+                           
+                          SizedBox(height: 5.0),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 5.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(2.0),
+                                  
+                                  child: Text(
+                                    "MANUFACTURED YEAR",
+                                    style: TextStyle(
+                                      color: Colors.blueGrey[200],
+                                      fontSize: 11.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 5.0,
+                                      margin: EdgeInsets.only(
+                                          top: 10.0, left: 10.0),
+                                      padding: EdgeInsets.all(2.0)
+                                      ,
+                                      child: Text(
+                                        "VALUATION",
+                                        style: TextStyle(
+                                          color: Colors.blueGrey[200],
+                                          fontSize: 11.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              Expanded(
+                                child: Container(
+                                  height: 40.0,
+                                  margin:
+                                      EdgeInsets.only(top: 15.0, left: 10.0),
+                                  padding: EdgeInsets.all(8.0),
+                                  decoration: BoxDecoration(
+                                      // color: Colors.white,
+                                      border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      ),
+                                  child: Text(
+                                    widget.document["yearofmake"].toString(),
+                                    style: TextStyle(
+                                      color: Colors.grey[700],
+                                      fontSize: 17.0,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                  child: Container(
+                                      height: 40.0,
+                                      margin: EdgeInsets.only(
+                                          top: 15.0, left: 10.0),
+                                      padding: EdgeInsets.all(8.0),
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                         border: Border.all(color: Colors.grey[200]),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                          ),
+                                      child: Text(
+                                        widget.document["value"].toString(),
+                                        style: TextStyle(
+                                          color: Colors.grey[700],
+                                          fontSize: 17.0,
+                                        ),
+                                      ))),
+                            ],
+                          ),
                 
                         ],
                     )

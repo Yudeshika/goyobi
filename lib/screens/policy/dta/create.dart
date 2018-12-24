@@ -44,13 +44,15 @@ final _formKey = GlobalKey<FormState>();
 
   int _radioPeriod = 0;
 
+  String selectedCustomer = null;
+
   final dateFormat = DateFormat("yyyy-MM-dd");
   
 
 
   String msg = (now.hour < 12) ? "Good Morning!" : "Good Afternoon";
   TextEditingController txtName = TextEditingController();
-  TextEditingController txtId = TextEditingController();
+  // TextEditingController txtId = TextEditingController();
   TextEditingController txtApplicantname = TextEditingController();
   TextEditingController txtApplicantaddress = TextEditingController();
   TextEditingController txtPolicyno = TextEditingController();
@@ -105,29 +107,46 @@ final _formKey = GlobalKey<FormState>();
                         
                         children: <Widget>[
                 
-                          (validator.getMap()["name"]!=null && validator.getMap()["name"]["show"])?	
-                          new IMTextField(
-                            label: 'Customer Name'+((validator.getMap()["name"]["validation_rules"]!=null)?" *":""),
-                            controller:txtName,
-
-                             validator: (text) => widget.validator
-                                    .validate(text, "name", widget),
-
-                          ):new SizedBox(),
-
-                          (validator.getMap()["id"]!=null && validator.getMap()["id"]["show"])?	
-                          new IMTextField(
-                            label: 'Customer ID'+((validator.getMap()["id"]["validation_rules"]!=null)?" *":""),
-                            controller:txtId,
-
-                             validator: (text) => widget.validator
-                                    .validate(text, "id", widget),
-                            
-                          ):new SizedBox(),
+                          
+                          new Text("Select Customer"),
+                          StreamBuilder(
+                                stream: Firestore.instance
+                                    .collection("customers")
+                                    .where("uid", isEqualTo: widget.uid)
+                                    .snapshots(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                                  if (!snapshot.hasData)
+                                    return new Text('Loading...');
+                                  return new DropdownButton(
+                                      elevation: 0,
+                                      value: selectedCustomer,
+                                      items: snapshot.data.documents
+                                          .map((DocumentSnapshot document) {
+                                        String name = document["name"];
+                                        // if(name.toLowerCase().contains(filter.toLowerCase())){
+                                        return DropdownMenuItem(
+                                            value: document.documentID+" - "+name,
+                                            child: Row(
+                                              children: <Widget>[
+                                                new Icon(Icons.person),
+                                                new SizedBox(width: 5.0),
+                                                new Text(name)
+                                              ],
+                                            ));
+                                        // }
+                                      }).toList(),
+                                      onChanged: (value) {
+                                        print(value);
+                                        selectedCustomer = value;
+                                        setState(() {});
+                                      });
+                                },
+                              ),
 
                           (validator.getMap()["applicantname"]!=null && validator.getMap()["applicantname"]["show"])?	
                           new IMTextField(
-                            label: 'Applicant Name'+((validator.getMap()["applicantname"]["validation_rules"]!=null)?" *":""),
+                            label: 'Applicant Name'+((validator.getMap()["applicantname"]["validation_rules"]!="")?" *":""),
                             controller:txtApplicantname,
 
                              validator: (text) => widget.validator
@@ -137,7 +156,7 @@ final _formKey = GlobalKey<FormState>();
 
                           (validator.getMap()["applicantaddress"]!=null && validator.getMap()["applicantaddress"]["show"])?
                           new IMTextField(
-                            label: 'Applicant Address'+((validator.getMap()["applicantaddress"]["validation_rules"]!=null)?" *":""),
+                            label: 'Applicant Address'+((validator.getMap()["applicantaddress"]["validation_rules"]!="")?" *":""),
                             controller:txtApplicantaddress,
 
                              validator: (text) => widget.validator
@@ -147,7 +166,7 @@ final _formKey = GlobalKey<FormState>();
 
                           (validator.getMap()["policyno"]!=null && validator.getMap()["policyno"]["show"])?
                           new IMTextField(
-                            label: 'Policy No'+((validator.getMap()["policyno"]["validation_rules"]!=null)?" *":""),
+                            label: 'Policy No'+((validator.getMap()["policyno"]["validation_rules"]!="")?" *":""),
                             controller:txtPolicyno,
 
                              validator: (text) => widget.validator
@@ -157,7 +176,7 @@ final _formKey = GlobalKey<FormState>();
 
                           (validator.getMap()["proposalno"]!=null && validator.getMap()["proposalno"]["show"])?
                           new IMTextField(
-                            label: 'Proposal No'+((validator.getMap()["proposalno"]["validation_rules"]!=null)?" *":""),
+                            label: 'Proposal No'+((validator.getMap()["proposalno"]["validation_rules"]!="")?" *":""),
                             controller:txtProposalno,
 
                              validator: (text) => widget.validator
@@ -167,7 +186,7 @@ final _formKey = GlobalKey<FormState>();
 
                           (validator.getMap()["loanvalue"]!=null && validator.getMap()["loanvalue"]["show"])?
                           new IMTextField(
-                            label: 'Loan Value'+((validator.getMap()["loanvalue"]["validation_rules"]!=null)?" *":""),
+                            label: 'Loan Value'+((validator.getMap()["loanvalue"]["validation_rules"]!="")?" *":""),
                             controller:txtLoanvalue,
 
                             keyboardType: TextInputType.number,
@@ -278,7 +297,7 @@ final _formKey = GlobalKey<FormState>();
 
                           (validator.getMap()["premium"]!=null && validator.getMap()["premium"]["show"])?
                           new IMTextField(
-                            label: 'Premium'+((validator.getMap()["premium"]["validation_rules"]!=null)?" *":""),
+                            label: 'Premium'+((validator.getMap()["premium"]["validation_rules"]!="")?" *":""),
                             controller:txtPremium,
 
                             keyboardType: TextInputType.number,
@@ -290,7 +309,7 @@ final _formKey = GlobalKey<FormState>();
 
                           (validator.getMap()["paid"]!=null && validator.getMap()["paid"]["show"])?
                           new IMTextField(
-                            label: 'Paid Amount'+((validator.getMap()["paid"]["validation_rules"]!=null)?" *":""),
+                            label: 'Paid Amount'+((validator.getMap()["paid"]["validation_rules"]!="")?" *":""),
                             controller:txtPaid,
 
                             keyboardType: TextInputType.number,
@@ -302,7 +321,7 @@ final _formKey = GlobalKey<FormState>();
 
                           (validator.getMap()["due"]!=null && validator.getMap()["due"]["show"])?
                           new IMTextField(
-                            label: 'Balance Amount'+((validator.getMap()["due"]["validation_rules"]!=null)?" *":""),
+                            label: 'Balance Amount'+((validator.getMap()["due"]["validation_rules"]!="")?" *":""),
                             controller:txtDue,
 
                             keyboardType: TextInputType.number,
@@ -360,8 +379,8 @@ final _formKey = GlobalKey<FormState>();
                                     Firestore.instance.runTransaction((Transaction transaction) async{
                                       CollectionReference reference = Firestore.instance.collection('policies');
                                       await reference.add({
-                                        "name":txtName.text,
-                                        "id":txtId.text,
+                                        "name":selectedCustomer.split(" - ")[1],
+                                        "id":selectedCustomer.split(" - ")[0],
                                         "type":4,
                                         "applicantname":txtApplicantname.text,
                                         "applicantaddress":txtApplicantaddress .text,
@@ -374,7 +393,8 @@ final _formKey = GlobalKey<FormState>();
                                         "premium":txtPremium.text,
                                         "paid":txtPaid.text,
                                         "due":txtDue.text,
-                                        "duedate":txtDuedate.text
+                                        "duedate":txtDuedate.text,
+                                        "uid":widget.uid
                                         });
                                       
                                     });

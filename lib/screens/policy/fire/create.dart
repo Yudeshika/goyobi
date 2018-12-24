@@ -27,6 +27,8 @@ class _FireState extends State<FireCreate> {
   final _formKey = GlobalKey<FormState>();
 
   int _radioPeriod = 0;
+  int _radioPolicytype = 0;
+  int _radioBusiness = 0;
 
    Validator validator;
 
@@ -41,16 +43,20 @@ class _FireState extends State<FireCreate> {
   }
 
 
+  String selectedCustomer = null;
+
   final dateFormat = DateFormat("yyyy-MM-dd");
 
   static DateTime now = DateTime.now();
   String msg = (now.hour < 12) ? "Good Morning!" : "Good Afternoon";
 
-   TextEditingController txtName = TextEditingController();
-  TextEditingController txtId = TextEditingController();
+   //TextEditingController txtName = TextEditingController();
+  //TextEditingController txtId = TextEditingController();
   TextEditingController txtPolicyno = TextEditingController();
   TextEditingController txtProposalno = TextEditingController();
   TextEditingController txtSum = TextEditingController();
+  TextEditingController txtPolicytype = TextEditingController();
+  TextEditingController txtBusiness = TextEditingController();
   TextEditingController txtStart = TextEditingController();
   TextEditingController txtPeriod = TextEditingController();
   TextEditingController txtRenewal = TextEditingController();
@@ -105,29 +111,47 @@ class _FireState extends State<FireCreate> {
                               children: <Widget>[
                           
                           
-                          (validator.getMap()["name"]!=null && validator.getMap()["name"]["show"])?			
-                          new IMTextField(
-                            label: 'Customer Name'+((validator.getMap()["name"]["validation_rules"]!=null)?" *":""),
-                            controller:txtName,
+                          new Text("Select Customer"),
+                          StreamBuilder(
+                                stream: Firestore.instance
+                                    .collection("customers")
+                                    .where("uid", isEqualTo: widget.uid)
+                                    .snapshots(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<QuerySnapshot> snapshot) {
+                                  if (!snapshot.hasData)
+                                    return new Text('Loading...');
+                                  return new DropdownButton(
+                                      elevation: 0,
+                                      value: selectedCustomer,
+                                      items: snapshot.data.documents
+                                          .map((DocumentSnapshot document) {
+                                        String name = document["name"];
+                                        // if(name.toLowerCase().contains(filter.toLowerCase())){
+                                        return DropdownMenuItem(
+                                            value: document.documentID+" - "+name,
+                                            child: Row(
+                                              children: <Widget>[
+                                                new Icon(Icons.person),
+                                                new SizedBox(width: 5.0),
+                                                new Text(name)
+                                              ],
+                                            ));
+                                        // }
+                                      }).toList(),
+                                      onChanged: (value) {
+                                        print(value);
+                                        selectedCustomer = value;
+                                        setState(() {});
+                                      });
+                                },
+                              ),
 
-                            validator: (text) => widget.validator
-                                    .validate(text, "name", widget),
-
-                          ):new SizedBox(),
-
-                          (validator.getMap()["id"]!=null && validator.getMap()["id"]["show"])?
-                          new IMTextField(
-                            label: 'Customer ID'+((validator.getMap()["id"]["validation_rules"]!=null)?" *":""),
-                            controller:txtId,
-
-                            validator: (text) => widget.validator
-                                    .validate(text, "id", widget),
-
-                          ):new SizedBox(),
+                         
 
                           (validator.getMap()["policyno"]!=null && validator.getMap()["policyno"]["show"])?
                           new IMTextField(
-                            label: 'Policy Number'+((validator.getMap()["policyno"]["validation_rules"]!=null)?" *":""),
+                            label: 'Policy Number'+((validator.getMap()["policyno"]["validation_rules"]!="")?" *":""),
                             controller:txtPolicyno,
 
                             validator: (text) => widget.validator
@@ -137,7 +161,7 @@ class _FireState extends State<FireCreate> {
 
                           (validator.getMap()["proposalno"]!=null && validator.getMap()["proposalno"]["show"])?
 			                    new IMTextField(
-                            label: 'Proposal Number'+((validator.getMap()["proposalno"]["validation_rules"]!=null)?" *":""),
+                            label: 'Proposal Number'+((validator.getMap()["proposalno"]["validation_rules"]!="")?" *":""),
                             controller:txtProposalno,
 
                             validator: (text) => widget.validator
@@ -147,7 +171,7 @@ class _FireState extends State<FireCreate> {
 
                           (validator.getMap()["sum"]!=null && validator.getMap()["sum"]["show"])?
 			                    new IMTextField(
-                            label: 'SUM'+((validator.getMap()["sum"]["validation_rules"]!=null)?" *":""),
+                            label: 'SUM'+((validator.getMap()["sum"]["validation_rules"]!="")?" *":""),
                             controller:txtSum,
 
                             keyboardType: TextInputType.number,
@@ -157,40 +181,97 @@ class _FireState extends State<FireCreate> {
 
                           ):new SizedBox(),
 
-                          (validator.getMap()["vehicleno"]!=null && validator.getMap()["vehicleno"]["show"])?
-                          new IMDropdownButton(
-                            items:<DropdownMenuItem>[
-                              DropdownMenuItem(child: Text("Type of Policy"),)
-                            ]
-                          ):new SizedBox(),
+                                new SizedBox(height: 20.0,),
+
+                                (validator.getMap()["policytype"]!=null && validator.getMap()["policytype"]["show"])?
+                                new Text("Type of Policy"):new SizedBox(),
+
+                                (validator.getMap()["policytype"]!=null && validator.getMap()["policytype"]["show"])?
+                                new Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    new Row(children: <Widget>[
+                                      new Radio(
+                                        groupValue: _radioPolicytype,
+                                        onChanged: (val) {
+                                          setState(() {
+                                            _radioPolicytype = val;
+                                          });
+                                        },
+                                        activeColor: Colors.red,
+                                        value: 1,
+                                      ),
+                                      new Container(
+                                        width: 80.0,
+                                        child: new Text("Comprehensive"),
+                                      )
+                                    ],)
+                                    ,
+                                    new Row(children: <Widget>[
+                                      new Radio(
+                                      groupValue: _radioPolicytype,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          _radioPolicytype = val;
+                                        });
+                                      },
+                                      activeColor: Colors.red,
+                                      value: 2,
+                                    ),
+                                    new Container(
+                                        width: 80.0,
+                                        child: new Text("Third Party"),
+                                      )
+                                    ],)
+                                    
+                                  ]):new SizedBox(),
 
 
-			                    new IMDropdownButton(
-                            items:<DropdownMenuItem>[
-                              DropdownMenuItem(child: Text("Type of Business"),)
-                            ]
-                          ),
+			                   new SizedBox(height: 20.0,),
 
-			                    new SizedBox(height: 20.0,),
+                                (validator.getMap()["business"]!=null && validator.getMap()["business"]["show"])?
+                                new Text("Type of Business"):new SizedBox(),
 
-                                (validator.getMap()["start"]!=null && validator.getMap()["start"]["show"])?
-                                new Text("Start Date"):new SizedBox(),
+                                (validator.getMap()["business"]!=null && validator.getMap()["business"]["show"])?
+                                new Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                  children: <Widget>[
+                                    new Row(children: <Widget>[
+                                      new Radio(
+                                        groupValue: _radioBusiness,
+                                        onChanged: (val) {
+                                          setState(() {
+                                            _radioBusiness = val;
+                                          });
+                                        },
+                                        activeColor: Colors.red,
+                                        value: 1,
+                                      ),
+                                      new Container(
+                                        width: 80.0,
+                                        child: new Text("New"),
+                                      )
+                                    ],)
+                                    ,
+                                    new Row(children: <Widget>[
+                                      new Radio(
+                                      groupValue: _radioBusiness,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          _radioBusiness = val;
+                                        });
+                                      },
+                                      activeColor: Colors.red,
+                                      value: 2,
+                                    ),
+                                    new Container(
+                                        width: 80.0,
+                                        child: new Text("Renewal"),
+                                      )
+                                    ],)
+                                    
+                                  ]):new SizedBox(),
 
-                                (validator.getMap()["start"]!=null && validator.getMap()["start"]["show"])?
-                                 new DateTimePickerFormField(
-                                dateOnly: true,
-                                controller: txtStart,
-
-                                validator: (text) => widget.validator
-                                    .validateDate(text, "start"),
-
-                                format: dateFormat,
-                                onChanged: (date) {
-                                  Scaffold
-                                      .of(context)
-                                      .showSnackBar(SnackBar(content: Text('$date')));
-                                },
-                                ):new SizedBox(),
 
                           new SizedBox(height: 20.0,),
 
@@ -231,12 +312,33 @@ class _FireState extends State<FireCreate> {
                                     ),
                                     new Container(
                                         width: 50.0,
-                                        child: new Text("2 Weeks"),
+                                        child: new Text("1 Month"),
                                       )
                                     ],)
                                     
                                   ]):new SizedBox(),
 			                    
+			                    new SizedBox(height: 20.0,),
+
+                                (validator.getMap()["start"]!=null && validator.getMap()["start"]["show"])?
+                                new Text("Start Date"):new SizedBox(),
+
+                                (validator.getMap()["start"]!=null && validator.getMap()["start"]["show"])?
+                                 new DateTimePickerFormField(
+                                dateOnly: true,
+                                controller: txtStart,
+
+                                validator: (text) => widget.validator
+                                    .validateDate(text, "start"),
+
+                                format: dateFormat,
+                                onChanged: (date) {
+                                  Scaffold
+                                      .of(context)
+                                      .showSnackBar(SnackBar(content: Text('$date')));
+                                },
+                                ):new SizedBox(),
+
                           new SizedBox(height: 20.0,),
 
                                 (validator.getMap()["renewal"]!=null && validator.getMap()["renewal"]["show"])?
@@ -260,7 +362,7 @@ class _FireState extends State<FireCreate> {
 
 			                    (validator.getMap()["premium"]!=null && validator.getMap()["premium"]["show"])?
 			                    new IMTextField(
-                            label: 'Premium'+((validator.getMap()["premium"]["validation_rules"]!=null)?" *":""),
+                            label: 'Premium'+((validator.getMap()["premium"]["validation_rules"]!="")?" *":""),
                             controller:txtPremium,
 
                             keyboardType: TextInputType.number,
@@ -272,7 +374,7 @@ class _FireState extends State<FireCreate> {
 
                           (validator.getMap()["paid"]!=null && validator.getMap()["paid"]["show"])?
                           new IMTextField(
-                            label: 'Paid Amount'+((validator.getMap()["paid"]["validation_rules"]!=null)?" *":""),
+                            label: 'Paid Amount'+((validator.getMap()["paid"]["validation_rules"]!="")?" *":""),
                             controller:txtPaid,
 
                             keyboardType: TextInputType.number,
@@ -284,7 +386,7 @@ class _FireState extends State<FireCreate> {
 
 			                    (validator.getMap()["due"]!=null && validator.getMap()["due"]["show"])?
 			                    new IMTextField(
-                            label: 'Balance Amount'+((validator.getMap()["due"]["validation_rules"]!=null)?" *":""),
+                            label: 'Balance Amount'+((validator.getMap()["due"]["validation_rules"]!="")?" *":""),
                             controller:txtDue,
 
                             keyboardType: TextInputType.number,
@@ -325,14 +427,20 @@ class _FireState extends State<FireCreate> {
 
                           ):new SizedBox(),
 
-			                    new IMTextField(
-                            label: 'INVENTORY LIST',
+			                    SizedBox(height: 25.0),
+                          new Text(
+                            "INVENTORY LIST:",
+                            style: TextStyle(
+                                      color: Colors.deepOrange[300],
+                                      fontSize: 20.0,
+                                    ),
+                                    
 
                           ),
 
                           (validator.getMap()["itemname"]!=null && validator.getMap()["itemname"]["show"])?
 			                    new IMTextField(
-                            label: 'Item Name'+((validator.getMap()["itemname"]["validation_rules"]!=null)?" *":""),
+                            label: 'Item Name'+((validator.getMap()["itemname"]["validation_rules"]!="")?" *":""),
                             controller:txtItemname,
 
                             validator: (text) => widget.validator
@@ -342,7 +450,7 @@ class _FireState extends State<FireCreate> {
 
                           (validator.getMap()["serialno"]!=null && validator.getMap()["serialno"]["show"])?
                           new IMTextField(
-                            label: 'Serial No'+((validator.getMap()["serialno"]["validation_rules"]!=null)?" *":""),
+                            label: 'Serial No'+((validator.getMap()["serialno"]["validation_rules"]!="")?" *":""),
                             controller:txtSerialno,
 
                             validator: (text) => widget.validator
@@ -352,7 +460,7 @@ class _FireState extends State<FireCreate> {
 
                           (validator.getMap()["model"]!=null && validator.getMap()["model"]["show"])?
                           new IMTextField(
-                            label: 'Model'+((validator.getMap()["model"]["validation_rules"]!=null)?" *":""),
+                            label: 'Model'+((validator.getMap()["model"]["validation_rules"]!="")?" *":""),
                             controller:txtModel,
 
                             validator: (text) => widget.validator
@@ -372,7 +480,7 @@ class _FireState extends State<FireCreate> {
 
                           (validator.getMap()["value"]!=null && validator.getMap()["value"]["show"])?
                           new IMTextField(
-                            label: 'Value'+((validator.getMap()["value"]["validation_rules"]!=null)?" *":""),
+                            label: 'Value'+((validator.getMap()["value"]["validation_rules"]!="")?" *":""),
                             controller:txtValue,
 
                             keyboardType: TextInputType.number,
@@ -408,16 +516,18 @@ class _FireState extends State<FireCreate> {
                                       title: "CREATE",
                                       context: context,
                                       onPressed: () {
-                                        if (_formKey.currentState.validate() && widget.validator.validateRadio(_radioPeriod, "period", context)){
+                                        if (_formKey.currentState.validate() && widget.validator.validateRadio(_radioPeriod, "period", context) && widget.validator.validateRadio(_radioPolicytype, "policytype", context) && widget.validator.validateRadio(_radioBusiness, "business", context)){
                                         Firestore.instance.runTransaction((Transaction transaction) async{
                                       CollectionReference reference = Firestore.instance.collection('policies');
                                       await reference.add({
-                                        "name":txtName.text,
-                                        "id":txtId.text,
+                                         "name":selectedCustomer.split(" - ")[1],
+                                        "id":selectedCustomer.split(" - ")[0],
                                         "type":3,
                                         "policyno":txtPolicyno .text,
                                         "proposalno":txtProposalno .text,
                                         "sum":txtSum.text,
+                                        "policytype":_radioPolicytype,
+                                        "business":_radioBusiness,
                                         "start":txtStart.text,
                                         "renewal":txtRenewal.text,
                                         "period":_radioPeriod,
@@ -430,7 +540,8 @@ class _FireState extends State<FireCreate> {
                                         "serialno":txtSerialno   .text,
                                         "model":txtModel.text,
                                         "yearofmake":txtYearofmake.text,
-                                        "value":txtValue.text
+                                        "value":txtValue.text,
+                                        "uid":widget.uid
                                         });
                                       
                                     });

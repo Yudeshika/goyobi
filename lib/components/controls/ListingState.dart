@@ -1494,27 +1494,40 @@ class ListingState<T extends StatefulWidget> extends State<T>
                   )
                 ],
               ),
+              
               new Row /*or Column*/ (
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     (document['name'] != '')
-                        ? new Icon(Icons.people,
+                        ? new Icon(Icons.person,
                             size: 16.0, color: Colors.amber)
                         : new SizedBox(width: 16.0),
                     new SizedBox(
                       width: 5.0,
                     ),
-                    (document['duedate'] != '')
+                    (document['name'] != '')
                         ? new Container(
-                            width: 100.0,
-                            child: new Text(document['duedate'].toString()))
-                        : new SizedBox(width: 100.0),
+                            width: 220.0, child: new Text(document['name']))
+                        : new SizedBox(width: 220.0),
                     new SizedBox(
                       width: 10.0,
                     ),
-                    (document['premium'] != '')
-                        ? new Icon(Icons.calendar_view_day,
-                            size: 16.0, color: Colors.pinkAccent)
+                  ]),
+
+                  new Row(
+                children: <Widget>[
+                  new SizedBox(
+                    height: 7.0,
+                  )
+                ],
+              ),
+                  
+              new Row /*or Column*/ (
+                  // mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    (document['name'] != '')
+                        ? new Icon(Icons.monetization_on,
+                            size: 16.0, color: Colors.blue)
                         : new SizedBox(width: 16.0),
                     new SizedBox(
                       width: 5.0,
@@ -1527,26 +1540,43 @@ class ListingState<T extends StatefulWidget> extends State<T>
                     new SizedBox(
                       width: 10.0,
                     ),
+                    (document['period'] != '')
+                        ? new Icon(Icons.calendar_view_day,
+                            size: 16.0, color: Colors.pinkAccent)
+                        : new SizedBox(width: 16.0),
+                    new SizedBox(
+                      width: 5.0,
+                    ),
+                    (document['period'] != '')
+                        ? new Container(
+                            width: 100.0,
+                            child: new Text(document['period'].toString()))
+                        : new SizedBox(width: 100.0),
+                    new SizedBox(
+                      width: 10.0,
+                    ),
                   ]),
-              new Row(
+
+                  new Row(
                 children: <Widget>[
                   new SizedBox(
                     height: 7.0,
                   )
                 ],
               ),
+              
               new Row /*or Column*/ (
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-                  (document['due'] != '')
+                  (document['duedate'] != '')
                       ? new Icon(Icons.calendar_today,
                           size: 16.0, color: Colors.green)
                       : new SizedBox(width: 16.0),
                   new SizedBox(
                     width: 5.0,
                   ),
-                  (document['due'] != '')
-                      ? new Container(child: new Text(document['due']))
+                  (document['duedate'] != '')
+                      ? new Container(child: new Text(document['duedate']))
                       : new SizedBox(width: 60.0),
                 ],
               ),
@@ -1601,7 +1631,8 @@ class ListingState<T extends StatefulWidget> extends State<T>
             children: <Widget>[
               CircleAvatar(
                 child:
-                    Text((document['name'] != "") ? document['name'][0] : "A"),
+                    new Icon(Icons.whatshot,
+                    size: 22.0, color: Colors.red),
               )
             ],
           )),
@@ -1635,27 +1666,39 @@ class ListingState<T extends StatefulWidget> extends State<T>
                   )
                 ],
               ),
-              new Row /*or Column*/ (
-                  mainAxisSize: MainAxisSize.min,
+               new Row /*or Column*/ (
+                  mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     (document['name'] != '')
-                        ? new Icon(Icons.people,
+                        ? new Icon(Icons.person,
                             size: 16.0, color: Colors.amber)
                         : new SizedBox(width: 16.0),
                     new SizedBox(
                       width: 5.0,
                     ),
-                    (document['loanvalue'] != '')
+                    (document['name'] != '')
                         ? new Container(
-                            width: 100.0,
-                            child: new Text(document['loanvalue'].toString()))
-                        : new SizedBox(width: 100.0),
+                            width: 220.0, child: new Text(document['name']))
+                        : new SizedBox(width: 220.0),
                     new SizedBox(
                       width: 10.0,
                     ),
-                    (document['premium'] != '')
-                        ? new Icon(Icons.calendar_view_day,
-                            size: 16.0, color: Colors.pinkAccent)
+                  ]),
+                  
+                   new Row(
+                children: <Widget>[
+                  new SizedBox(
+                    height: 7.0,
+                  )
+                ],
+              ),
+                  
+              new Row /*or Column*/ (
+                  // mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    (document['name'] != '')
+                        ? new Icon(Icons.monetization_on,
+                            size: 16.0, color: Colors.blue)
                         : new SizedBox(width: 16.0),
                     new SizedBox(
                       width: 5.0,
@@ -1668,29 +1711,47 @@ class ListingState<T extends StatefulWidget> extends State<T>
                     new SizedBox(
                       width: 10.0,
                     ),
+                    (document['period'] != '')
+                        ? new Icon(Icons.calendar_view_day,
+                            size: 16.0, color: Colors.pinkAccent)
+                        : new SizedBox(width: 16.0),
+                    new SizedBox(
+                      width: 5.0,
+                    ),
+                    (document['period'] != '')
+                        ? new Container(
+                            width: 100.0,
+                            child: new Text(document['period'].toString()))
+                        : new SizedBox(width: 100.0),
+                    new SizedBox(
+                      width: 10.0,
+                    ),
                   ]),
-              new Row(
+
+                  new Row(
                 children: <Widget>[
                   new SizedBox(
                     height: 7.0,
                   )
                 ],
               ),
+             
               new Row /*or Column*/ (
                 mainAxisSize: MainAxisSize.max,
                 children: <Widget>[
-                  (document['due'] != '')
+                  (document['duedate'] != '')
                       ? new Icon(Icons.calendar_today,
                           size: 16.0, color: Colors.green)
                       : new SizedBox(width: 16.0),
                   new SizedBox(
                     width: 5.0,
                   ),
-                  (document['due'] != '')
-                      ? new Container(child: new Text(document['due']))
+                  (document['duedate'] != '')
+                      ? new Container(child: new Text(document['duedate']))
                       : new SizedBox(width: 60.0),
                 ],
               ),
+
               new Row(
                 children: <Widget>[
                   new SizedBox(
@@ -1742,7 +1803,8 @@ class ListingState<T extends StatefulWidget> extends State<T>
             children: <Widget>[
               CircleAvatar(
                 child:
-                    Text((document['name'] != "") ? document['name'][0] : "A"),
+                    new Icon(Icons.dvr,
+                    size: 22.0, color: Colors.black),
               )
             ],
           )),
@@ -1883,7 +1945,8 @@ class ListingState<T extends StatefulWidget> extends State<T>
             children: <Widget>[
               CircleAvatar(
                 child:
-                    Text((document['name'] != "") ? document['name'][0] : "A"),
+                    new Icon(Icons.directions_car,
+                    size: 22.0, color: Colors.purple),
               )
             ],
           )),
@@ -2024,7 +2087,8 @@ class ListingState<T extends StatefulWidget> extends State<T>
             children: <Widget>[
               CircleAvatar(
                 child:
-                    Text((document['name'] != "") ? document['name'][0] : "A"),
+                    new Icon(Icons.directions_car,
+                    size: 22.0, color: Colors.purple),
               )
             ],
           )),
@@ -2157,7 +2221,8 @@ class ListingState<T extends StatefulWidget> extends State<T>
             children: <Widget>[
               CircleAvatar(
                 child:
-                    Text((document['name'] != "") ? document['name'][0] : "A"),
+                    new Icon(Icons.directions_car,
+                    size: 22.0, color: Colors.purple),
               )
             ],
           )),
@@ -2290,10 +2355,12 @@ class ListingState<T extends StatefulWidget> extends State<T>
             children: <Widget>[
               CircleAvatar(
                 child:
-                    Text((document['name'] != "") ? document['name'][0] : "A"),
+                    new Icon(Icons.directions_car,
+                    size: 22.0, color: Colors.purple),
               )
             ],
           )),
     );
   }
 }
+

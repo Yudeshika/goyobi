@@ -45,8 +45,6 @@ class _LifeState extends State<LifeCreate> {
   static DateTime now = DateTime.now();
   String msg = (now.hour < 12) ? "Good Morning!" : "Good Afternoon";
 
-   TextEditingController txtName = TextEditingController();
-  TextEditingController txtId = TextEditingController();
   TextEditingController txtPolicyno = TextEditingController();
   TextEditingController txtProposalno = TextEditingController();
   TextEditingController txtSum = TextEditingController();
